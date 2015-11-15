@@ -22,6 +22,7 @@ public class Mix implements IMix{
 	/** A String of the commands given by the user **/
 	private String commands;
 	
+	
 	/** The Initial Set of Commands **/
 	public String cmd = "Q\t\t means QUIT\n"
 			+ "b c #\t\t means INSERT char 'c' before position #\n"
