@@ -104,7 +104,7 @@ public class LinkList<E> {
 		if (top == null) 
 			return false;
 		
-		//case 1: delete the first node
+		//case 1: data found at top
 		if (top.getData().equals(data)) {
 			top = top.getNext();
 			return true;
@@ -112,17 +112,11 @@ public class LinkList<E> {
 		
 		Node<E> temp = top;
 		
-		while(!temp.getData().equals(data)){
+		while(temp.getNext() != null){
 			
 			//case 2: delete a node from the middle
 			if(temp.getNext().getData().equals(data)){
 				temp.setNext(temp.getNext().getNext());
-				return true;
-			}
-			
-			//case 3: delete a node from the end
-			if(temp.getNext() == null){
-				temp.setNext(null);
 				return true;
 			}
 			
@@ -131,25 +125,14 @@ public class LinkList<E> {
 		}
 		
 		
-		//case 4: multiple occurrences of the data
+		//case 3: multiple occurrences of the data
 		
 		
-		//case 5: data not found
+		//case 4: data not found
 		return false;
 		 
 	}
 
-	/*******************************************************************
-	 * 
-	 ******************************************************************/
-	public void deleteHalfWay() {
-
-		//case 0: empty list
-		
-		
-		//case 1: 
-		
-	}
 
 	/*******************************************************************
 	 * Main Method used to test the LinkList
