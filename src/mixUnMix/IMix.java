@@ -15,4 +15,4 @@ public interface IMix {
 	   /** set the original message */
 	   void setInitialMessage(String message);
 
-	}
+}
