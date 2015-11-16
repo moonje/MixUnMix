@@ -43,7 +43,6 @@ public class LinkList<E> {
 			top = new Node<E>(data,top);
 		}
 	}
-
 	
 	/*******************************************************************
 	 * Returns the top Node
@@ -83,7 +82,6 @@ public class LinkList<E> {
 			count++;
 			temp = temp.getNext();
 		}
-
 
 		return count;
 	}
@@ -131,32 +129,28 @@ public class LinkList<E> {
 			return true;
 		}
 		
-		//case 2: found at the tail
-		if (tail.getData().equals(data)){
-			//REVISE ME
-		}
-		
-		//case 3: found in the middle
+		//case 2: found in middle
 		Node<E> temp = top;
 		
-		
-		while(temp.getNext() != null){
+		while (temp.getNext() != null) {
 			
-			//case 2: delete a node from the middle
-			if(temp.getNext().getData().equals(data)){
+			if (temp.getNext().getData().equals(data)) {
+				
 				temp.setNext(temp.getNext().getNext());
+				
+				if (temp.getNext() == null){
+					tail = temp;
+				}
+				
 				return true;
 			}
 			
-			temp = temp.getNext();
+			temp = temp.getNext();		
 		}
 		
-		//case 4: data not found
+		//case 3: data not found
 		return false;
-		 
 	}
-	
-
 
 	/*******************************************************************
 	 * Main Method used to test the LinkList
@@ -164,8 +158,7 @@ public class LinkList<E> {
 	 * Provided by Professor Ferguson; we will need to use JUnit testing
 	 ******************************************************************/
 	public static void main (String[] args){
-		LinkList<String> list = new 
-				LinkList<String>();
+		LinkList<String> list = new LinkList<String>();
 		
 		list.addAtEnd("pizza5");
 		list.addfirst("pizza1");
@@ -176,20 +169,22 @@ public class LinkList<E> {
 		list.display();
 		
 		list.delete("pizza1");
+		
+		System.out.println("-------");
 		list.display();
 		
 
-		//		list.addAtEnd("pizza11");
+		list.addAtEnd("pizza11");
+		list.addfirst("pizza3");
+		list.addfirst("pizza4");
+		list.addfirst("pizza5");
+		list.addfirst("pizza6");
+		list.addfirst("pizza7");
+		list.addfirst("pizza8");
+		list.addAtEnd("pizza9");
 
-		//		list.addfirst("pizza3");
-		//		list.addfirst("pizza4");
-		//		list.addfirst("pizza5");
-		//		list.addfirst("pizza6");
-		//		list.addfirst("pizza7");
-		//		list.addfirst("pizza8");
-		//		list.addAtEnd("pizza9");
-
-		//list.display();
+		System.out.println("-------");
+		list.display();
 
 	}
 }

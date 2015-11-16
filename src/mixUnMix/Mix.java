@@ -43,9 +43,7 @@ public class Mix implements IMix{
 	 * Quits the program
 	 ******************************************************************/
 	public void quit(){
-		
 		System.exit(0);
-		
 	}
 	
 	/*******************************************************************
@@ -65,7 +63,7 @@ public class Mix implements IMix{
 		Node<String> temp = new Node<String>("" + c, pointer.getNext());
 		pointer.setNext(temp);
 		
-		commands += "r" + p + position + "\n";
+		commands = "r" + p + position + "\n" + commands;
 	}
 	
 	/*******************************************************************
@@ -86,7 +84,7 @@ public class Mix implements IMix{
 		pointer.setNext(pointer.getNext().getNext());
 		
 		
-		commands += "b" + p + data + p + position + "\n";
+		commands = "b" + p + data + p + position + "\n" + commands;
 	}
 	
 	/*******************************************************************
@@ -114,7 +112,7 @@ public class Mix implements IMix{
 		temp1.setData(temp2.getData());
 		temp2.setData(data);
 		
-		commands += "w" + p + pos2 + p + pos1 + "\n";
+		commands = "w" + p + pos2 + p + pos1 + "\n" + commands;
 	}
 	
 	/*******************************************************************
