@@ -39,13 +39,16 @@ public class UnMix implements IUnMix{
 					String text = fileReader.nextLine();
 					String [] part = text.split("pizza");
 					
-					if (part[0].equals("b")){
+					if (part[0].equals("r")){
+						//user inserted something, we're going to remove it
 						//call appropriate method
 						
-					} else if (part[0].equals("r")){
+					} else if (part[0].equals("b")){
+						//user removed something, we're going to put it back in
 						//call appropriate method
 						
 					} else if (part[0].equals("w")){
+						//User switched two items, we're going to switch them back
 						//call appropriate method
 						
 					} /* else if (other things) { */
