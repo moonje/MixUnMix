@@ -17,11 +17,13 @@ public class Mix implements IMix{
 	private LinkList message; 
 	
 	/** A clipboard to save pieces of the message to **/
-	private String clipboard;
+	private LinkList clipboard;
 	
 	/** A String of the commands given by the user **/
-	private String commands;
+	private String commands = "";
 	
+	/** pizza **/
+	final String p = "pizza";
 	
 	/** The Initial Set of Commands **/
 	public String cmd = "Q\t\t means QUIT\n"
@@ -54,7 +56,16 @@ public class Mix implements IMix{
 	 ******************************************************************/
 	public void insert(char c, int position){
 		
+		Node<String> pointer = message.getTop();
 		
+		for (int i = 0; i < position; i++){
+			pointer = pointer.getNext();
+		}
+		
+		Node<String> temp = new Node<String>("" + c, pointer.getNext());
+		pointer.setNext(temp);
+		
+		commands += "r" + p + position + "\n";
 	}
 	
 	/*******************************************************************
@@ -64,7 +75,18 @@ public class Mix implements IMix{
 	 ******************************************************************/
 	public void remove(int position){
 		
+		Node<String> pointer = message.getTop();
 		
+		for (int i = 0; i < position; i++){
+			pointer = pointer.getNext();
+		}
+		
+		String data = (String) pointer.getNext().getData();
+		
+		pointer.setNext(pointer.getNext().getNext());
+		
+		
+		commands += "b" + p + data + p + position + "\n";
 	}
 	
 	/*******************************************************************
@@ -76,7 +98,23 @@ public class Mix implements IMix{
 	 ******************************************************************/
 	public void switchPosition(int pos1, int pos2){
 		
+		Node<String> temp1 = message.getTop();
 		
+		for (int i = 0; i < pos1; i++){
+			temp1 = temp1.getNext();
+		}
+		
+		Node<String> temp2 = message.getTop();
+		
+		for (int i = 0; i < pos2; i++){
+			temp2 = temp2.getNext();
+		}
+		
+		String data = temp1.getData();
+		temp1.setData(temp2.getData());
+		temp2.setData(data);
+		
+		commands += "w" + p + pos2 + p + pos1 + "\n";
 	}
 	
 	/*******************************************************************
@@ -94,11 +132,11 @@ public class Mix implements IMix{
 					(filename)));
 
 			//print to file
-			for (int i = 0; i < acts.size(); i++){
+			/*for (int i = 0; i < acts.size(); i++){
 
 				
 
-			}
+			}*/
 
 		} catch (IOException e) {
 			throw new IOException(); 
@@ -151,7 +189,9 @@ public class Mix implements IMix{
 	 ******************************************************************/
 	@Override
 	public String processCommand(String command) {
-		// TODO Auto-generated method stub
+
+		
+		
 		return null;
 	}
 
