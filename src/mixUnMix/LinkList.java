@@ -11,12 +11,16 @@ public class LinkList<E> {
 	
 	/** The First Node in the LinkList **/
 	private Node<E> top; 
+	
+	/** The Tail Node in the LinkList **/
+	private Node<E> tail;
 
 	/*******************************************************************
 	 * Default constructor used to instantiate the LinkList
 	 ******************************************************************/
 	public LinkList() {
 		top = null;   // 0000
+		tail = null;  // 0000
 	}
 
 	/*******************************************************************
@@ -25,7 +29,19 @@ public class LinkList<E> {
 	 * @param data, the type of the data the Node will contain
 	 ******************************************************************/
 	public void addfirst (E data) {
-		top = new Node<E> (data, top);
+		//Old way
+		//top = new Node<E> (data, top);
+		
+		//Case 0: No list
+		if (top == null){
+			top = new Node<E>(data, top);
+			tail = top; 
+		}
+		
+		//Case 1: There is a list 
+		else {
+			top = new Node<E>(data,top);
+		}
 	}
 
 	
@@ -79,29 +95,17 @@ public class LinkList<E> {
 	 ******************************************************************/
 	public void addAtEnd (E data) {
 
-		//case 0: empty list
+		//Case 0: Empty list
 		if (top == null) {
 			top = new Node<E> (data, top);
+			tail = top; 
 		
-		//case 1: list with items
+		//Case 1: List with items
 		} else {
-			
-			Node<E> temp = top;
-			
-			while (temp.getNext() != null) {
-				temp = temp.getNext();
-			}
-
-			Node<E> temp2 = new Node<E>();
-			temp2.setData(data);
-			temp2.setNext(null);
-
-			temp.setNext(temp2);
+			tail.setNext(new Node<E>(data, null));
+			tail = tail.getNext();
 		}
-
 	} 
-
-	
 
 	/*******************************************************************
 	 * Removes a specified Node from the LinkList
@@ -115,13 +119,26 @@ public class LinkList<E> {
 		if (top == null) 
 			return false;
 		
-		//case 1: data found at top
+		//case 1: found at first node 
 		if (top.getData().equals(data)) {
 			top = top.getNext();
+			
+			//list of one node
+			if (top == null){
+				tail = top; 	
+			}
+
 			return true;
 		}
 		
+		//case 2: found at the tail
+		if (tail.getData().equals(data)){
+			//REVISE ME
+		}
+		
+		//case 3: found in the middle
 		Node<E> temp = top;
+		
 		
 		while(temp.getNext() != null){
 			
@@ -132,12 +149,7 @@ public class LinkList<E> {
 			}
 			
 			temp = temp.getNext();
-			
 		}
-		
-		
-		//case 3: multiple occurrences of the data
-		
 		
 		//case 4: data not found
 		return false;

@@ -13,7 +13,7 @@ public class Node<E> {
 	public E data;
 
 	/** Next Node in the LinkList **/
-	public Node next;
+	public Node<E> next;
 
 	/*******************************************************************
 	 * Constructor used to instantiate the Node, given its data and 
@@ -22,7 +22,7 @@ public class Node<E> {
 	 * @param data, the data in the Node
 	 * @param next, the next Node
 	 ******************************************************************/
-	public Node(E data, Node next) {
+	public Node(E data, Node<E> next) {
 		this.data = data;
 		this.next = next;
 	}
@@ -58,7 +58,7 @@ public class Node<E> {
 	 * 
 	 * @return the next node in the LinkList
 	 ******************************************************************/
-	public Node getNext() {
+	public Node<E> getNext() {
 		return next;
 	}
 
@@ -67,7 +67,7 @@ public class Node<E> {
 	 * 
 	 * @param next, the next node 
 	 ******************************************************************/
-	public void setNext(Node next) {
+	public void setNext(Node<E> next) {
 		this.next = next;
 	}
 }
