@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 /***********************************************************************
  * @author Jennifer Moon
@@ -14,10 +15,10 @@ import java.io.PrintWriter;
 public class Mix implements IMix{
 
 	/** LinkList of Characters Representing a Message (String) **/
-	private LinkList message; 
+	private LinkList<String> message; 
 	
-	/** A clipboard to save pieces of the message to **/
-	private LinkList clipboard;
+	/** A clip board to save pieces of the message to **/
+	private LinkList<String> clipboard;
 	
 	/** A String of the commands given by the user **/
 	private String commands = "";
@@ -83,7 +84,6 @@ public class Mix implements IMix{
 		
 		pointer.setNext(pointer.getNext().getNext());
 		
-		
 		commands = "b" + p + data + p + position + "\n" + commands;
 	}
 	
@@ -123,18 +123,12 @@ public class Mix implements IMix{
 	public void save(String filename) throws Exception{
 		
 		PrintWriter out = null;
+		
 		try {
-
-			//open and read file
 			out = new PrintWriter(new BufferedWriter(new FileWriter
 					(filename)));
 
-			//print to file
-			/*for (int i = 0; i < acts.size(); i++){
-
-				
-
-			}*/
+			out.print(commands);
 
 		} catch (IOException e) {
 			throw new IOException(); 
@@ -143,7 +137,6 @@ public class Mix implements IMix{
 			//close file
 			out.close();
 		}
-		
 	}
 	
 	/*******************************************************************
@@ -194,11 +187,37 @@ public class Mix implements IMix{
 	}
 
 	/*******************************************************************
+	 * Sets the initial message to a LinkList
 	 * 
+	 * @param msg the user's message
 	 ******************************************************************/
 	@Override
-	public void setInitialMessage(String message) {
-		// TODO Auto-generated method stub
+	public void setInitialMessage(String msg) {
+		String[] characters = msg.split("(?<!^)");
+		
+		for (int i = 0; i < characters.length; i++){
+			System.out.println("" + characters[i]);
+			message.addAtEnd(characters[i]);
+		}
+		
+	}
+	
+	
+	/************************Jennifer Testing**************************/
+	public void display(){
+		message.display();
+	}
+	
+	public static void main(String[] args){
+		Mix mix = new Mix();
+		
+		String msg = "Hello how are you?";
+		String[] characters = msg.split("(?<!^)");
+		System.out.println(Arrays.toString(characters));
+		
+		
+		mix.setInitialMessage("Hello how are you?");
+		mix.display();
 		
 	}
 }
