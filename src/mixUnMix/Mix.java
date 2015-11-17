@@ -41,6 +41,14 @@ public class Mix implements IMix{
 	
 	
 	/*******************************************************************
+	 * Default constructor for Mix
+	 ******************************************************************/
+	public Mix(){
+		message = new LinkList<String>();
+		clipboard = new LinkList<String>();
+	}
+	
+	/*******************************************************************
 	 * Quits the program
 	 ******************************************************************/
 	public void quit(){
@@ -196,7 +204,8 @@ public class Mix implements IMix{
 		String[] characters = msg.split("(?<!^)");
 		
 		for (int i = 0; i < characters.length; i++){
-			System.out.println("" + characters[i]);
+			//System.out.println(characters[i]);
+
 			message.addAtEnd(characters[i]);
 		}
 		
@@ -211,9 +220,9 @@ public class Mix implements IMix{
 	public static void main(String[] args){
 		Mix mix = new Mix();
 		
-		String msg = "Hello how are you?";
-		String[] characters = msg.split("(?<!^)");
-		System.out.println(Arrays.toString(characters));
+//		String msg = "Hello how are you?";
+//		String[] characters = msg.split("(?<!^)");
+//		System.out.println(Arrays.toString(characters));
 		
 		
 		mix.setInitialMessage("Hello how are you?");

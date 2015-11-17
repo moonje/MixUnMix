@@ -101,7 +101,7 @@ public class LinkList<E> {
 	 * @param data, the type of data the Node will contain
 	 ******************************************************************/
 	public void addAtEnd (E data) {
-
+		
 		//Case 0: Empty list
 		if (top == null) {
 			top = new Node<E> (data, top);
