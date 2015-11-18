@@ -14,6 +14,67 @@ JUnit Tests used to test Node, Mix, LinkList, and UnMix
 public class MixUnMixTests {
 	
 	/*******************************************************************
+	 * Tests: insert(String c, int position) in Mix.java
+	 ******************************************************************/
+	@Test
+	public void testInsert(){
+		Mix m = new Mix(); 
+		
+		m.insert("A", 0);
+		assertEquals(m.messageToString(), "A ");
+		assertEquals(m.getCommands(), "rpizza0\n");
+		
+		m.insert("B", 1);
+		assertEquals(m.messageToString(), "A B ");
+		assertEquals(m.getCommands(), "rpizza1\nrpizza0\n");
+	}
+	
+	/*******************************************************************
+	 * Tests: processCommand(String command) in Mix.java
+	 ******************************************************************/
+	@Test
+	public void testProcessCommand(){
+		
+		//Tests correct CASE 'B' inputs 
+		Mix m = new Mix();
+		m.setInitialMessage("13");
+		
+		m.processCommand("b 0 0");
+		assertEquals(m.messageToString(), "0 1 3 ");
+		
+		m.processCommand("b 2 2");
+		assertEquals(m.messageToString(), "0 1 2 3 ");
+		
+		m.processCommand("b A 3");
+		assertEquals(m.messageToString(), "0 1 2 A 3 ");
+	}
+	
+	/*******************************************************************
+	 * Tests: processCommand(String command) in Mix.java with improper 
+	 * 		  commands
+	 ******************************************************************/
+	@Test 
+	public void testProcessCommand2(){
+		String message = "Unable to process command: incorrect format!";
+		
+		//Tests CASE 'B' inputs 
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		
+		assertEquals(m.processCommand("b 12 0"), message);
+		assertEquals(m.processCommand("b aa 0"), message);
+		assertEquals(m.processCommand("b"), message);
+		assertEquals(m.processCommand("b 12"), message);
+		assertEquals(m.processCommand("b b b"), message);
+
+		
+		//Tests INVALID COMMAND
+		message = "Command not found";
+		assertEquals(m.processCommand("pizza"), message);
+		assertEquals(m.processCommand("B 1 0"), message);
+	}
+	
+	/*******************************************************************
 	 * Tests: addBeforeIndex(int index, E data) in LinkList.java
 	 ******************************************************************/
 	@Test

@@ -42,13 +42,21 @@ public class Mix implements IMix{
 	/** Generic Error Message **/
 	final String error = "Unable to process command: incorrect format!";
 	
-	
 	/*******************************************************************
 	 * Default constructor for Mix
 	 ******************************************************************/
 	public Mix(){
 		message = new LinkList<String>();
 		clipboard = new LinkList<String>();
+	}
+	
+	/*******************************************************************
+	 * Returns the string of commands 
+	 * 
+	 * @return String of the commands
+	 ******************************************************************/
+	public String getCommands(){
+		return commands; 
 	}
 	
 	/*******************************************************************
@@ -64,17 +72,10 @@ public class Mix implements IMix{
 	 * @param c the character to be inserted
 	 * @param position the position to insert the given character
 	 ******************************************************************/
-	public void insert(char c, int position){
+	public void insert(String c, int position){
 		
-		Node<String> pointer = message.getTop();
-		
-		for (int i = 0; i < position; i++){
-			pointer = pointer.getNext();
-		}
-		
-		Node<String> temp = new Node<String>("" + c, pointer.getNext());
-		pointer.setNext(temp);
-		
+		message.addBeforeIndex(position, c);
+
 		commands = "r" + p + position + "\n" + commands;
 	}
 	
@@ -217,13 +218,12 @@ public class Mix implements IMix{
 				} else {
 					try {
 						int index = Integer.parseInt(com[2]);
-						message.addBeforeIndex(index, com[1]);
+						insert(com[1], index);
 						
 					} catch (Exception e) {
 						return error; 
 					}
 				}
-				
 				break; 
 				
 			case "r":
@@ -306,17 +306,4 @@ public class Mix implements IMix{
 	public String clipboardToString(){
 		return message.toString();
 	}
-	
-	
-//	/************************Jennifer Testing**************************/
-//	public static void main(String[] args){
-//		Mix mix = new Mix();
-//		
-//		String msg = "Hello how are you?";
-//		String[] characters = msg.split("(?<!^)");
-//		System.out.println(Arrays.toString(characters));
-//		
-//		mix.setInitialMessage("Hello how are you?");
-//		mix.displayMessage();
-//	}
 }
