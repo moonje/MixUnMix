@@ -39,6 +39,9 @@ public class Mix implements IMix{
 			+ "c & #\t\t means COPY to clipboard, starting at & and "
 			+ "ending at # (inclusive)";
 	
+	/** Generic Error Message **/
+	final String error = "Unable to process command: incorrect format!";
+	
 	
 	/*******************************************************************
 	 * Default constructor for Mix
@@ -127,24 +130,30 @@ public class Mix implements IMix{
 	 * Saves the commands to a text file
 	 * 
 	 * @param filename the name of the file to be saved to
+	 * @return String telling the user whether or not the file saved
 	 ******************************************************************/
-	public void save(String filename) throws Exception{
+	public String save(String filename){
 		
 		PrintWriter out = null;
+		String update = "";
 		
 		try {
 			out = new PrintWriter(new BufferedWriter(new FileWriter
 					(filename)));
 
 			out.print(commands);
+			
+			update = "File saved successfully!";
 
 		} catch (IOException e) {
-			throw new IOException(); 
+			update = "WARNING: File was not saved successfully!";
 
 		} finally {
 			//close file
 			out.close();
 		}
+		
+		return update; 
 	}
 	
 	/*******************************************************************
@@ -199,35 +208,56 @@ public class Mix implements IMix{
 			case "Q":
 				//quit
 				break; 
+				
 			case "b":
 				//insert char c before position #
+				if (com.length != 3 || com[1].length() > 1){
+					return error;
+					
+				} else {
+					try {
+						int index = Integer.parseInt(com[2]);
+						message.addBeforeIndex(index, com[1]);
+						
+					} catch (Exception e) {
+						return error; 
+					}
+				}
+				
 				break; 
+				
 			case "r":
 				//remove a char at position #
 				break; 
+				
 			case "w":
 				//switch characters at position & and #
 				break; 
+				
 			case "s":
 				//save the commands to the filename 
 				break; 
+				
 			case "x":
 				//cut to the clipboard, starting at & to # (inclusive)
 				break; 
+				
 			case "p":
 				//paste from clipboard, starting at #
 				break; 
+				
 			case "c":
 				//copy to clipboard, starting at & to # (inclusive)
 				break; 
+				
 			default:
 				return "Command not found";
 			}
 		} catch (Exception e) {
-			return "ERROR IN USER INPUT";
+			return error;
 		}
 
-		return null;
+		return "Something useful, like probably the updated LinkList";
 	}
 
 	/*******************************************************************
@@ -237,17 +267,16 @@ public class Mix implements IMix{
 	 ******************************************************************/
 	@Override
 	public void setInitialMessage(String msg) {
+		
 		String[] characters = msg.split("(?<!^)");
 		
 		for (int i = 0; i < characters.length; i++){
-			//System.out.println(characters[i]);
-
 			message.addAtEnd(characters[i]);
 		}
 	}
 	
 	/*******************************************************************
-	 * Displays message (LinkList)
+	 * Display message (LinkList)
 	 ******************************************************************/
 	public void displayMessage(){
 		System.out.println(message.toString());

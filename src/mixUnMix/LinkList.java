@@ -28,7 +28,7 @@ public class LinkList<E> {
 	 * 
 	 * @param data, the type of the data the Node will contain
 	 ******************************************************************/
-	public void addfirst (E data) {
+	public void addFirst (E data) {
 		//Old way
 		//top = new Node<E> (data, top);
 		
@@ -135,6 +135,42 @@ public class LinkList<E> {
 			tail = tail.getNext();
 		}
 	} 
+	
+	/*******************************************************************
+	 * Adds a new Node with given data at the given index
+	 * 
+	 * @param index, the position at which the node will be added
+	 * @param data, the data to be added
+	 * @throws IllegalArgumentException
+	 ******************************************************************/
+	public void addBeforeIndex(int index, E data) 
+			throws IllegalArgumentException{
+		
+		//index out of bounds
+		if (index < 0 || count() < index){
+			throw new IllegalArgumentException();
+		
+		//First node
+		} else if (index == 0){
+			addFirst(data);
+			
+		//Last node
+		} else if (index == count()){
+			addAtEnd(data);
+		
+		//some other index 
+		} else {
+			Node<E> temp = top;
+
+			for (int i = 0; i < index - 1; i++){
+				temp = temp.getNext();
+			}
+			
+			Node<E> node = new Node<E>(data, temp.getNext());
+			temp.setNext(node);	
+		}	
+	}
+	
 
 	/*******************************************************************
 	 * Removes a specified Node from the LinkList
@@ -183,39 +219,39 @@ public class LinkList<E> {
 		return false;
 	}
 
-	/*******************************************************************
-	 * Main Method used to test the LinkList
-	 * 
-	 * Provided by Professor Ferguson; we will need to use JUnit testing
-	 ******************************************************************/
-	public static void main (String[] args){
-		LinkList<String> list = new LinkList<String>();
-		
-		list.addAtEnd("pizza5");
-		list.addfirst("pizza1");
-		list.addfirst("pizza2");
-		list.addfirst("pizza3");
-		list.addAtEnd("pizza4");
-
-		list.display();
-		
-		list.delete("pizza1");
-		
-		System.out.println("-------");
-		list.display();
-		
-
-		list.addAtEnd("pizza11");
-		list.addfirst("pizza3");
-		list.addfirst("pizza4");
-		list.addfirst("pizza5");
-		list.addfirst("pizza6");
-		list.addfirst("pizza7");
-		list.addfirst("pizza8");
-		list.addAtEnd("pizza9");
-
-		System.out.println("-------");
-		list.display();
-
-	}
+//	/*******************************************************************
+//	 * Main Method used to test the LinkList
+//	 * 
+//	 * Provided by Professor Ferguson; we will need to use JUnit testing
+//	 ******************************************************************/
+//	public static void main (String[] args){
+//		LinkList<String> list = new LinkList<String>();
+//		
+//		list.addAtEnd("pizza5");
+//		list.addFirst("pizza1");
+//		list.addFirst("pizza2");
+//		list.addFirst("pizza3");
+//		list.addAtEnd("pizza4");
+//
+//		list.display();
+//		
+//		list.delete("pizza1");
+//		
+//		System.out.println("-------");
+//		list.display();
+//		
+//
+//		list.addAtEnd("pizza11");
+//		list.addFirst("pizza3");
+//		list.addFirst("pizza4");
+//		list.addFirst("pizza5");
+//		list.addFirst("pizza6");
+//		list.addFirst("pizza7");
+//		list.addFirst("pizza8");
+//		list.addAtEnd("pizza9");
+//
+//		System.out.println("-------");
+//		list.display();
+//
+//	}
 }
