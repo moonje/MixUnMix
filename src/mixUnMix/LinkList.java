@@ -170,7 +170,6 @@ public class LinkList<E> {
 			temp.setNext(node);	
 		}	
 	}
-	
 
 	/*******************************************************************
 	 * Removes a specified Node from the LinkList

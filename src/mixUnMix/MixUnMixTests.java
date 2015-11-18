@@ -12,7 +12,7 @@ JUnit Tests used to test Node, Mix, LinkList, and UnMix
 ***********************************************************************/
 
 public class MixUnMixTests {
-
+	
 	/*******************************************************************
 	 * Tests: addBeforeIndex(int index, E data) in LinkList.java
 	 ******************************************************************/
@@ -60,30 +60,6 @@ public class MixUnMixTests {
 		
 		LinkList<String> link = new LinkList<String>();
 		link.addBeforeIndex(10, "C");
-	}
-	
-	/*******************************************************************
-	 * Tests: LinkList() in LinkList.java
-	 ******************************************************************/
-	@Test
-	public void testLinkList(){
-		LinkList<String> link = new LinkList<String>();
-		
-		assertEquals(link.getTop(), null);
-		assertEquals(link.getTail(), null);
-	}
-	
-	/*******************************************************************
-	 * Tests: addFirst(e data) in LinkList.java
-	 ******************************************************************/
-	@Test
-	public void testAddFirst(){
-		LinkList<String> link = new LinkList<String>();
-		link.addFirst("S");
-		assertEquals(link.toString(), "S ");
-		
-		link.addFirst("R");
-		assertEquals(link.toString(), "R S ");
 	}
 	
 	/*******************************************************************
