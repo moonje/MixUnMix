@@ -67,13 +67,35 @@ public class LinkList<E> {
 	 ******************************************************************/
 	public void display() {
 
+//		String str = "";
+//		Node<E> temp = top;
+//		
+//		//prints the data from each node
+//		while (temp != null) {
+//			str += temp.getData() + "\n";
+//			temp = temp.getNext();
+//		}
+//		
+		System.out.println(this.toString()); 
+	}
+	
+	/*******************************************************************
+	 * Converts the LinkList information to a String
+	 * 
+	 * @return string representing the LinkList
+	 ******************************************************************/
+	public String toString() {
+
+		String str = "";
 		Node<E> temp = top;
 		
 		//prints the data from each node
 		while (temp != null) {
-			System.out.println (temp.getData());
+			str += temp.getData() + " ";
 			temp = temp.getNext();
 		}
+		
+		return str; 
 	}
 
 	/*******************************************************************

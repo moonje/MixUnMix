@@ -184,13 +184,49 @@ public class Mix implements IMix{
 	}
 	
 	/*******************************************************************
+	 * Processes the user's command
 	 * 
+	 * @param command, the user's command
+	 * @return String WHAT DO IT DOOOOO
 	 ******************************************************************/
 	@Override
 	public String processCommand(String command) {
+		
+		try{
+			String[] com = command.split(" ");
+			
+			switch (com[0]) {
+			case "Q":
+				//quit
+				break; 
+			case "b":
+				//insert char c before position #
+				break; 
+			case "r":
+				//remove a char at position #
+				break; 
+			case "w":
+				//switch characters at position & and #
+				break; 
+			case "s":
+				//save the commands to the filename 
+				break; 
+			case "x":
+				//cut to the clipboard, starting at & to # (inclusive)
+				break; 
+			case "p":
+				//paste from clipboard, starting at #
+				break; 
+			case "c":
+				//copy to clipboard, starting at & to # (inclusive)
+				break; 
+			default:
+				return "Command not found";
+			}
+		} catch (Exception e) {
+			return "ERROR IN USER INPUT";
+		}
 
-		
-		
 		return null;
 	}
 
@@ -208,25 +244,50 @@ public class Mix implements IMix{
 
 			message.addAtEnd(characters[i]);
 		}
-		
+	}
+	
+	/*******************************************************************
+	 * Displays message (LinkList)
+	 ******************************************************************/
+	public void displayMessage(){
+		System.out.println(message.toString());
+	}
+	
+	/*******************************************************************
+	 * Converts message (LinkList) to a String
+	 * 
+	 * @return String representing message
+	 ******************************************************************/
+	public String messageToString(){
+		return message.toString();
+	}
+	
+	/*******************************************************************
+	 * Displays clipboard (LinkList)
+	 ******************************************************************/
+	public void displayClipboard(){
+		System.out.println(clipboard.toString());
+	}
+	
+	/*******************************************************************
+	 * Converts clipboard (LinkList) to a String
+	 * 
+	 * @return String representing message
+	 ******************************************************************/
+	public String clipboardToString(){
+		return message.toString();
 	}
 	
 	
-	/************************Jennifer Testing**************************/
-	public void display(){
-		message.display();
-	}
-	
-	public static void main(String[] args){
-		Mix mix = new Mix();
-		
+//	/************************Jennifer Testing**************************/
+//	public static void main(String[] args){
+//		Mix mix = new Mix();
+//		
 //		String msg = "Hello how are you?";
 //		String[] characters = msg.split("(?<!^)");
 //		System.out.println(Arrays.toString(characters));
-		
-		
-		mix.setInitialMessage("Hello how are you?");
-		mix.display();
-		
-	}
+//		
+//		mix.setInitialMessage("Hello how are you?");
+//		mix.displayMessage();
+//	}
 }

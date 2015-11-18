@@ -14,8 +14,39 @@ JUnit Tests used to test Node, Mix, LinkList, and UnMix
 
 public class MixUnMixTests {
 
+	
+	//Tests: SetInitialMessage() in Mix
 	@Test
-	public void testNodeConstructor(){
+	public void testSetInitialMessage(){
+		Mix m1 = new Mix();
+		m1.setInitialMessage("abcdefghijklmnopqrstuvwxyz");
+		assertEquals(m1.messageToString(), 
+				"a b c d e f g h i j k l m n o p q r s t u v w x y z ");
 		
+		m1 = new Mix();
+		m1.setInitialMessage(" ");
+		assertEquals(m1.messageToString(),"  ");
+		
+		m1 = new Mix(); 
+		m1.setInitialMessage("   ");
+		assertEquals(m1.messageToString(), "      ");
+		
+		m1 = new Mix();
+		m1.setInitialMessage("! ? ! ? !");
+		assertEquals(m1.messageToString(), "!   ?   !   ?   ! ");
+		
+		//CHECK ME OUT
+		m1 = new Mix();
+		m1.setInitialMessage("");
+		assertEquals(m1.messageToString(), " ");
+		
+		m1 = new Mix();
+		m1.setInitialMessage("	"); //tab
+		assertEquals(m1.messageToString(), "	 ");
+		
+		m1 = new Mix();
+		m1.setInitialMessage("| & 1 ~ `' ^%$");
+		assertEquals(m1.messageToString(), "|   &   1   ~   ` '   ^ % $ ");
 	}
+	
 }
