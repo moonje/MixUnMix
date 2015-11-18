@@ -206,15 +206,14 @@ public class Mix implements IMix{
 			String[] com = command.split(" ");
 			
 			switch (com[0]) {
+			//quit
 			case "Q":
-				//quit
 				break; 
-				
+			
+			//insert char c before position #
 			case "b":
-				//insert char c before position #
 				if (com.length != 3 || com[1].length() > 1){
 					return error;
-					
 				} else {
 					try {
 						int index = Integer.parseInt(com[2]);
@@ -225,31 +224,33 @@ public class Mix implements IMix{
 					}
 				}
 				break; 
-				
+			
+			//remove a char at position #
 			case "r":
-				//remove a char at position #
 				break; 
-				
+			
+			//switch characters at position & and #
 			case "w":
-				//switch characters at position & and #
 				break; 
-				
+			
+			//save the commands to the filename 	
 			case "s":
-				//save the commands to the filename 
 				break; 
 				
+			//cut to the clipboard, starting at & to # (inclusive)
 			case "x":
-				//cut to the clipboard, starting at & to # (inclusive)
 				break; 
 				
+				
+			//paste from clipboard, starting at #
 			case "p":
-				//paste from clipboard, starting at #
 				break; 
 				
+			//copy to clipboard, starting at & to # (inclusive)
 			case "c":
-				//copy to clipboard, starting at & to # (inclusive)
 				break; 
 				
+			//Command doesn't exist 
 			default:
 				return "Command not found";
 			}
