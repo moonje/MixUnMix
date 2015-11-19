@@ -30,6 +30,17 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
+	 * Tests: insert(String c, int position) in Mix.java with incorrect
+	 * 	      inputs
+	 ******************************************************************/
+	@Test (expected = IllegalArgumentException.class)
+	public void testInsertErrors(){
+		Mix m = new Mix();
+		
+		m.insert("QUACK", 12);
+	}
+	
+	/*******************************************************************
 	 * Tests: processCommand(String command) in Mix.java
 	 ******************************************************************/
 	@Test
@@ -47,6 +58,86 @@ public class MixUnMixTests {
 		
 		m.processCommand("b A 3");
 		assertEquals(m.messageToString(), "0 1 2 A 3 ");
+		
+		//Tests correct CASE 'R' inputs
+		m = new Mix();
+		m.setInitialMessage("pizza");
+		
+		m.processCommand("r 1");
+		assertEquals(m.messageToString(), "p z z a ");
+		
+		m.processCommand("r 0");
+		assertEquals(m.messageToString(), "z z a ");
+		
+		m.processCommand("r 2");
+		assertEquals(m.messageToString(), "z z ");
+		
+		m.processCommand("r 0");
+		assertEquals(m.messageToString(), "z ");
+		
+		m.processCommand("r 0");
+		assertEquals(m.messageToString(), "");
+	}
+	
+	/*******************************************************************
+	 * Tests: remove(int position) in Mix.java
+	 ******************************************************************/
+	@Test
+	public void testRemove(){
+		Mix m = new Mix();
+		m.setInitialMessage("PIZZA pizza");
+		
+		m.remove(0);
+		assertEquals(m.messageToString(), "I Z Z A   p i z z a ");
+		assertEquals(m.getCommands(), "bpizzaPpizza0\n");
+	}
+	
+	/*******************************************************************
+	 * Tests: removeAtIndex(int position) in LinkList.java
+	 ******************************************************************/
+	@Test
+	public void testRemoveAtIndex(){
+		LinkList<String> link = new LinkList<String>();
+		link.addFirst("P");
+		link.addAtEnd("i");
+		link.addAtEnd("z");
+		link.addAtEnd("s");
+		link.addAtEnd("a");
+		
+		link.removeAtIndex(0);
+		assertEquals(link.toString(), "i z s a ");
+		
+		link.removeAtIndex(1);
+		assertEquals(link.toString(), "i s a ");
+		
+		link.removeAtIndex(1);
+		assertEquals(link.toString(), "i a ");
+		
+		link.removeAtIndex(1);
+		assertEquals(link.toString(), "i ");
+		
+		link.removeAtIndex(0);
+		assertEquals(link.toString(), "");
+	}
+	
+	/*******************************************************************
+	 * Tests: removeAtIndex(int position) in LinkList.java with too 
+	 *        too large of an index
+	 ******************************************************************/
+	@Test (expected = IllegalArgumentException.class)
+	public void testRemoveAtIndex2(){
+		LinkList<String> link = new LinkList<String>();
+		link.removeAtIndex(0);
+	}
+	
+	/*******************************************************************
+	 * Tests: removeAtIndex(int position) in LinkList.java with a
+	 *        negative index
+	 ******************************************************************/
+	@Test (expected = IllegalArgumentException.class)
+	public void testRemoveAtIndex3(){
+		LinkList<String> link = new LinkList<String>();
+		link.removeAtIndex(-1);
 	}
 	
 	/*******************************************************************
@@ -55,7 +146,9 @@ public class MixUnMixTests {
 	 ******************************************************************/
 	@Test 
 	public void testProcessCommand2(){
-		String message = "Unable to process command: incorrect format!";
+		String message = "Unable to process command: incorrect format!"
+				+ "\nSomething useful, like probably "
+				+ "the updated LinkList";
 		
 		//Tests CASE 'B' inputs 
 		Mix m = new Mix();
@@ -69,7 +162,8 @@ public class MixUnMixTests {
 
 		
 		//Tests INVALID COMMAND
-		message = "Command not found";
+		message = "Command not found\nSomething useful, like probably "
+				+ "the updated LinkList";
 		assertEquals(m.processCommand("pizza"), message);
 		assertEquals(m.processCommand("B 1 0"), message);
 	}

@@ -170,6 +170,58 @@ public class LinkList<E> {
 			temp.setNext(node);	
 		}	
 	}
+	
+	/*******************************************************************
+	 * Removes a node at the specified index 
+	 * 
+	 * @return E, data that was removed
+	 * @param position, the index of the Node
+	 * @throws IllegalArgumentException
+	 ******************************************************************/
+	public E removeAtIndex(int position) 
+			throws IllegalArgumentException{
+		
+		E data = null; 
+		
+		//case 0: no list or index too large
+		if (top == null || position >= count() || position < 0){
+			throw new IllegalArgumentException();
+		}
+		
+		//case 1: found at first node 
+		if (position == 0) {
+			data = top.getData();
+			top = top.getNext();
+			
+			//list of one node
+			if (top == null){
+				tail = top; 	
+			}
+			return data;
+		}
+		
+		//case 2: found in middle
+		
+		Node<E> pointer = top;
+		
+		//Finds the node at the specified index
+		for (int i = 0; i < position - 1; i++){
+			pointer = pointer.getNext();
+		}
+
+		if (pointer.getNext() == null){
+			tail = pointer; 
+			pointer.setNext(null);
+		} else {
+			data = pointer.getNext().getData();
+			pointer.setNext(pointer.getNext().getNext());
+		}
+		
+		if (data != null)
+			return data;
+		else 
+			throw new IllegalArgumentException();
+	}
 
 	/*******************************************************************
 	 * Removes a specified Node from the LinkList

@@ -74,29 +74,31 @@ public class Mix implements IMix{
 	 ******************************************************************/
 	public void insert(String c, int position){
 		
-		message.addBeforeIndex(position, c);
+		try {
+			message.addBeforeIndex(position, c);
+			
+			commands = "r" + p + position + "\n" + commands;
 
-		commands = "r" + p + position + "\n" + commands;
+		} catch (IllegalArgumentException e){
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	/*******************************************************************
 	 * Removes the character at the given position
 	 * 
 	 * @param position the location of the character to be removed
+	 * @throws IllegalArgumentException
 	 ******************************************************************/
-	public void remove(int position){
+	public void remove(int position) throws IllegalArgumentException{
 		
-		Node<String> pointer = message.getTop();
+		String data = message.removeAtIndex(position);
 		
-		for (int i = 0; i < position; i++){
-			pointer = pointer.getNext();
+		if (data != null){
+			commands = "b" + p + data + p + position + "\n" + commands;
+		} else {
+			throw new IllegalArgumentException();
 		}
-		
-		String data = (String) pointer.getNext().getData();
-		
-		pointer.setNext(pointer.getNext().getNext());
-		
-		commands = "b" + p + data + p + position + "\n" + commands;
 	}
 	
 	/*******************************************************************
@@ -202,6 +204,8 @@ public class Mix implements IMix{
 	@Override
 	public String processCommand(String command) {
 		
+		String returnString = "";
+		
 		try{
 			String[] com = command.split(" ");
 			
@@ -212,21 +216,38 @@ public class Mix implements IMix{
 			
 			//insert char c before position #
 			case "b":
+				
+				//user put in incorrectly formatted command
 				if (com.length != 3 || com[1].length() > 1){
-					return error;
+					returnString = error;
+					
 				} else {
 					try {
 						int index = Integer.parseInt(com[2]);
 						insert(com[1], index);
 						
 					} catch (Exception e) {
-						return error; 
+						returnString = error; 
 					}
 				}
 				break; 
 			
 			//remove a char at position #
 			case "r":
+				
+				//user put in incorrectly formatted command
+				if (com.length != 2 || com[1].length() > 1){
+					returnString = error;
+					
+				} else {
+					try {
+						int index = Integer.parseInt(com[1]);
+						remove(index);
+						
+					} catch (Exception e) {
+						returnString = error; 
+					}
+				}
 				break; 
 			
 			//switch characters at position & and #
@@ -252,13 +273,14 @@ public class Mix implements IMix{
 				
 			//Command doesn't exist 
 			default:
-				return "Command not found";
+				returnString = "Command not found";
 			}
 		} catch (Exception e) {
-			return error;
+			return returnString = error;
 		}
 
-		return "Something useful, like probably the updated LinkList";
+		return returnString + "\nSomething useful, like probably "
+				+ "the updated LinkList";
 	}
 
 	/*******************************************************************
