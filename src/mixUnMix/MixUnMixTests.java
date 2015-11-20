@@ -151,19 +151,24 @@ public class MixUnMixTests {
     	m.setInitialMessage("pizza");
     	m.switchPosition(1, 3);
     	assertEquals(m.messageToString(), "p z z i a ");
+    	assertEquals(m.getCommands(), "wpizza3pizza1\n");
     	
     	Mix m2 = new Mix();
     	m2.setInitialMessage("This is a test.");
     	m2.switchPosition(0, 4);
     	assertEquals(m2.messageToString(), 
     			"  h i s T i s   a   t e s t . ");
+    	assertEquals(m2.getCommands(), "wpizza4pizza0\n");
     	
     	Mix m3 = new Mix();
     	m3.setInitialMessage("Hello");
     	m3.switchPosition(2, 3);
     	assertEquals(m3.messageToString(), "H e l l o ");
+    	assertEquals(m3.getCommands(), "wpizza3pizza2\n");
     	m3.switchPosition(0, 4);
     	assertEquals(m3.messageToString(), "o e l l H ");
+    	assertEquals(m3.getCommands(), 
+    			"wpizza4pizza0\nwpizza3pizza2\n");
     }
     
     /*******************************************************************

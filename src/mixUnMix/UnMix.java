@@ -26,6 +26,8 @@ public class UnMix implements IUnMix{
 	public String UnMixUsingFile(String filename, String userMessage) 
 			throws IllegalArgumentException{
 		
+		Mix mix = new Mix();
+		
 		//Ensures the user is reading from a .txt file
 		if (filename.substring(filename.lastIndexOf(".") + 1).equals(
 				"txt")) {
@@ -40,16 +42,17 @@ public class UnMix implements IUnMix{
 					String [] part = text.split("pizza");
 					
 					if (part[0].equals("r")){
-						//user inserted something, we're going to remove it
-						//call appropriate method
+						
+						mix.remove(Integer.parseInt(part[1]));
 						
 					} else if (part[0].equals("b")){
-						//user removed something, we're going to put it back in
-						//call appropriate method
+
+						mix.insert(part[1], Integer.parseInt(part[2]));
 						
 					} else if (part[0].equals("w")){
-						//User switched two items, we're going to switch them back
-						//call appropriate method
+			
+						mix.switchPosition(Integer.parseInt(part[1]),
+											Integer.parseInt(part[2]));
 						
 					} /* else if (other things) { */
 					
