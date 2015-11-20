@@ -364,6 +364,6 @@ public class Mix implements IMix{
 	 * @return String representing message
 	 ******************************************************************/
 	public String clipboardToString(){
-		return message.toString();
+		return clipboard.toString();
 	}
 }

@@ -143,14 +143,40 @@ public class MixUnMixTests {
 	/*******************************************************************
 	 * Tests: switchPosition(int pos1, int pos2) in Mix.java
 	 ******************************************************************/
-    @Test (expected = IllegalArgumentException.class)
+    @Test
     public void testSwitchPosition(){
+    	
+    	Mix m = new Mix();
+    	
+    	m.setInitialMessage("pizza");
+    	m.switchPosition(1, 3);
+    	assertEquals(m.messageToString(), "p z z i a ");
+    	
+    	Mix m2 = new Mix();
+    	m2.setInitialMessage("This is a test.");
+    	m2.switchPosition(0, 4);
+    	assertEquals(m2.messageToString(), 
+    			"  h i s T i s   a   t e s t . ");
+    	
+    	Mix m3 = new Mix();
+    	m3.setInitialMessage("Hello");
+    	m3.switchPosition(2, 3);
+    	assertEquals(m3.messageToString(), "H e l l o ");
+    	m3.switchPosition(0, 4);
+    	assertEquals(m3.messageToString(), "o e l l H ");
+    }
+    
+    /*******************************************************************
+	 * Tests: switchPosition(int pos1, int pos2) in Mix.java with
+	 * 			incorrect inputs
+	 ******************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testSwitchPosition2(){
     	
     	Mix m = new Mix();
     	m.setInitialMessage("pizza");
     	
-    	m.switchPosition(1, 3);
-    	assertEquals(m.messageToString(), "p z z i a ");
+    	m.switchPosition(1, 100);
     }
     
 	/*******************************************************************
@@ -433,5 +459,9 @@ public class MixUnMixTests {
 		m1 = new Mix();
 		m1.setInitialMessage("| & 1 ~ `' ");
 		assertEquals(m1.messageToString(), "|   &   1   ~   ` '   ");
-	}	
+	}
+	
+	/*******************************************************************
+	 * Tests: 
+	 ******************************************************************/
 }
