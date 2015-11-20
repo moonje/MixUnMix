@@ -277,10 +277,11 @@ public class Mix implements IMix{
 			//switch characters at position & and #
 			case "w":
 				
-				if (com.length ==3 ){
+				if (com.length == 3){
 					try {
 						int pos1 = Integer.parseInt(com[1]);
 						int pos2 = Integer.parseInt(com[2]);
+						message.switchNodes(pos1, pos2);
 						
 					} catch (Exception e) {
 						returnString = error; 
@@ -388,7 +389,7 @@ public class Mix implements IMix{
 		String input = "";
 		
 	    while ((input = scanner.nextLine()) != "q") {
-	    	mix.processCommand(input);
+	    	System.out.println(mix.processCommand(input));
 	      
 	    	System.out.println(mix.messageToString());
 	    	System.out.println("Command:");
