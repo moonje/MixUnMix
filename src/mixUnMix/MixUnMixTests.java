@@ -24,7 +24,7 @@ public class MixUnMixTests {
 			+ "p #\t\t means PASTE from the clipboard, starting at #\n"
 			+ "c & #\t\t means COPY to clipboard, starting at & and "
 			+ "ending at # (inclusive)\n"
-			+ "h\t\t displays this message again";
+			+ "h\t\t displays this message again\n";
 	
 	/*******************************************************************
 	 * Tests: switchNodes(int pos1, int pos2) in LinkList.java
@@ -270,9 +270,7 @@ public class MixUnMixTests {
 	@Test 
 	public void testProcessCommand2(){
 		
-		String message = "Unable to process command: incorrect format!"
-				+ "\nSomething useful, like probably "
-				+ "the updated LinkList";
+		String message = "Unable to process command: incorrect format!";
 		
 		Mix m = new Mix();
 		
@@ -305,8 +303,7 @@ public class MixUnMixTests {
 
 		
 		//Tests INVALID COMMAND
-		message = "Command not found\nSomething useful, like probably "
-				+ "the updated LinkList";
+		message = "Command not found";
 		assertEquals(m.processCommand("pizza"), message);
 		assertEquals(m.processCommand("B 1 0"), message);
 	}
