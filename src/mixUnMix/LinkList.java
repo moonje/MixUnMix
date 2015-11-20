@@ -29,8 +29,6 @@ public class LinkList<E> {
 	 * @param data, the type of the data the Node will contain
 	 ******************************************************************/
 	public void addFirst (E data) {
-		//Old way
-		//top = new Node<E> (data, top);
 		
 		//Case 0: No list
 		if (top == null){
@@ -63,19 +61,43 @@ public class LinkList<E> {
 	}
 	
 	/*******************************************************************
+	 * Switches the node at pos1 with the node at pos2
+	 * 
+	 * @param pos1, the first position
+	 * @param pos1, the second position
+	 * @throws IllegalArgumentException
+	 ******************************************************************/
+	public void switchNodes(int pos1, int pos2) 
+			throws IllegalArgumentException{
+		
+		if (pos1 < 0 || pos2 < 0 || 
+				pos1 > count() - 1 || pos2 > count() - 1){
+			throw new IllegalArgumentException();
+		}
+		
+		Node<E> temp1 = top;
+		
+		//Finds the node at position 1
+		for (int i = 0; i < pos1; i++){
+			temp1 = temp1.getNext();
+		}
+		Node<E> temp2 = top;
+		
+		//Finds the node at position 2
+		for (int i = 0; i < pos2; i++){
+			temp2 = temp2.getNext();
+		}
+		
+		//Switches the data in the nodes
+		E data = temp1.getData();
+		temp1.setData(temp2.getData());
+		temp2.setData(data);
+	}
+	
+	/*******************************************************************
 	 * Displays the contents of the LinkList
 	 ******************************************************************/
 	public void display() {
-
-//		String str = "";
-//		Node<E> temp = top;
-//		
-//		//prints the data from each node
-//		while (temp != null) {
-//			str += temp.getData() + "\n";
-//			temp = temp.getNext();
-//		}
-//		
 		System.out.println(this.toString()); 
 	}
 	
@@ -269,40 +291,4 @@ public class LinkList<E> {
 		//case 3: data not found
 		return false;
 	}
-
-//	/*******************************************************************
-//	 * Main Method used to test the LinkList
-//	 * 
-//	 * Provided by Professor Ferguson; we will need to use JUnit testing
-//	 ******************************************************************/
-//	public static void main (String[] args){
-//		LinkList<String> list = new LinkList<String>();
-//		
-//		list.addAtEnd("pizza5");
-//		list.addFirst("pizza1");
-//		list.addFirst("pizza2");
-//		list.addFirst("pizza3");
-//		list.addAtEnd("pizza4");
-//
-//		list.display();
-//		
-//		list.delete("pizza1");
-//		
-//		System.out.println("-------");
-//		list.display();
-//		
-//
-//		list.addAtEnd("pizza11");
-//		list.addFirst("pizza3");
-//		list.addFirst("pizza4");
-//		list.addFirst("pizza5");
-//		list.addFirst("pizza6");
-//		list.addFirst("pizza7");
-//		list.addFirst("pizza8");
-//		list.addAtEnd("pizza9");
-//
-//		System.out.println("-------");
-//		list.display();
-//
-//	}
 }

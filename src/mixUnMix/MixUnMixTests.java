@@ -13,11 +13,152 @@ JUnit Tests used to test Node, Mix, LinkList, and UnMix
 
 public class MixUnMixTests {
 	
+	public String cmd = "Q\t\t means QUIT\n"
+			+ "b c #\t\t means INSERT char 'c' before position #\n"
+			+ "r #\t\t means REMOVE a char at position #\n" +
+			"w & #\t\t means SWITCH character at position & with #\n" +
+			"s filename\t means SAVE the the set of undo commands" +
+			" into the file name 'filename'\n" +
+			"x & #\t\t means CUT to the clipboard starting at & and "
+			+ "ending at # (inclusive)\n"
+			+ "p #\t\t means PASTE from the clipboard, starting at #\n"
+			+ "c & #\t\t means COPY to clipboard, starting at & and "
+			+ "ending at # (inclusive)\n"
+			+ "h\t\t displays this message again";
+	
+	/*******************************************************************
+	 * Tests: switchNodes(int pos1, int pos2) in LinkList.java
+	 ******************************************************************/
+    @Test
+    public void testSwitchNodes(){
+    	
+    	LinkList<String> link = new LinkList<String>();
+    	
+    	link.addAtEnd("p");
+    	link.addAtEnd("i");
+    	link.addAtEnd("z");
+    	link.addAtEnd("z");
+    	link.addAtEnd("a");
+    	
+    	link.switchNodes(0, 1);
+    	assertEquals(link.toString(), "i p z z a ");
+    	
+    	link.switchNodes(1, 0);
+    	assertEquals(link.toString(), "p i z z a ");
+    	
+    	link.switchNodes(0, 4);
+    	assertEquals(link.toString(), "a i z z p ");
+    }
+    
+	/*******************************************************************
+	 * Tests: switchNodes(int pos1, int pos2) in LinkList.java for 
+	 *        negative param 1
+	 ******************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testSwitchNodes2(){
+    	
+    	LinkList<String> link = new LinkList<String>();
+    	
+    	link.addAtEnd("p");
+    	link.addAtEnd("i");
+    	link.addAtEnd("z");
+    	link.addAtEnd("z");
+    	link.addAtEnd("a");
+    	
+    	link.switchNodes(-1, 0);
+    }
+    
+	/*******************************************************************
+	 * Tests: switchNodes(int pos1, int pos2) in LinkList.java for 
+	 *        negative param 2
+	 ******************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testSwitchNodes3(){
+    	
+    	LinkList<String> link = new LinkList<String>();
+    	
+    	link.addAtEnd("p");
+    	link.addAtEnd("i");
+    	link.addAtEnd("z");
+    	link.addAtEnd("z");
+    	link.addAtEnd("a");
+    	
+    	link.switchNodes(0, -1);
+    }
+    
+	/*******************************************************************
+	 * Tests: switchNodes(int pos1, int pos2) in LinkList.java for 
+	 *        negative param 1 & param 2
+	 ******************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testSwitchNodes4(){
+    	
+    	LinkList<String> link = new LinkList<String>();
+    	
+    	link.addAtEnd("p");
+    	link.addAtEnd("i");
+    	link.addAtEnd("z");
+    	link.addAtEnd("z");
+    	link.addAtEnd("a");
+    	
+    	link.switchNodes(-1, -1);
+    }
+    
+	/*******************************************************************
+	 * Tests: switchNodes(int pos1, int pos2) in LinkList.java for 
+	 *        too large param 1
+	 ******************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testSwitchNodes5(){
+    	
+    	LinkList<String> link = new LinkList<String>();
+    	
+    	link.addAtEnd("p");
+    	link.addAtEnd("i");
+    	link.addAtEnd("z");
+    	link.addAtEnd("z");
+    	link.addAtEnd("a");
+    	
+    	link.switchNodes(5, 3);
+    }
+    
+	/*******************************************************************
+	 * Tests: switchNodes(int pos1, int pos2) in LinkList.java for 
+	 *        too large param 2
+	 ******************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testSwitchNodes6(){
+    	
+    	LinkList<String> link = new LinkList<String>();
+    	
+    	link.addAtEnd("p");
+    	link.addAtEnd("i");
+    	link.addAtEnd("z");
+    	link.addAtEnd("z");
+    	link.addAtEnd("a");
+    	
+    	link.switchNodes(2, 5);
+    }
+    
+	/*******************************************************************
+	 * Tests: switchPosition(int pos1, int pos2) in Mix.java
+	 ******************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testSwitchPosition(){
+    	
+    	Mix m = new Mix();
+    	m.setInitialMessage("pizza");
+    	
+    	m.switchPosition(1, 3);
+    	assertEquals(m.messageToString(), "p z z i a ");
+    }
+    
 	/*******************************************************************
 	 * Tests: insert(String c, int position) in Mix.java
 	 ******************************************************************/
 	@Test
 	public void testInsert(){
+		
 		Mix m = new Mix(); 
 		
 		m.insert("A", 0);
@@ -35,6 +176,7 @@ public class MixUnMixTests {
 	 ******************************************************************/
 	@Test (expected = IllegalArgumentException.class)
 	public void testInsertErrors(){
+		
 		Mix m = new Mix();
 		
 		m.insert("QUACK", 12);
@@ -46,8 +188,16 @@ public class MixUnMixTests {
 	@Test
 	public void testProcessCommand(){
 		
-		//Tests correct CASE 'B' inputs 
+		//Tests CASE 'H' inputs
+		//We're going to let them get away with extra spaces after 
+		//the 'h', 'cause they're probably pretty lost and we feel
+		//bad for them.
 		Mix m = new Mix();
+		assertEquals(m.processCommand("h"), cmd);
+		assertEquals(m.processCommand("h "), cmd);
+		assertEquals(m.processCommand("h             "), cmd);
+		
+		//Tests correct CASE 'B' inputs 
 		m.setInitialMessage("13");
 		
 		m.processCommand("b 0 0");
@@ -58,6 +208,9 @@ public class MixUnMixTests {
 		
 		m.processCommand("b A 3");
 		assertEquals(m.messageToString(), "0 1 2 A 3 ");
+		
+		m.processCommand("b   3");
+		assertEquals(m.messageToString(), "0 1 2   A 3 ");
 		
 		//Tests correct CASE 'R' inputs
 		m = new Mix();
@@ -80,16 +233,69 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
+	 * Tests: processCommand(String command) in Mix.java with improper 
+	 * 		  commands
+	 ******************************************************************/
+	@Test 
+	public void testProcessCommand2(){
+		
+		String message = "Unable to process command: incorrect format!"
+				+ "\nSomething useful, like probably "
+				+ "the updated LinkList";
+		
+		Mix m = new Mix();
+		
+		//Tests CASE 'H' inputs
+		assertEquals(m.processCommand("h  a"), message);
+		assertEquals(m.processCommand("h 0"), message);
+		
+		//Tests CASE 'B' inputs 
+		m.setInitialMessage("AB");
+		
+		assertEquals(m.processCommand("b 12 0"), message);
+		assertEquals(m.processCommand("b aa 0"), message);
+		assertEquals(m.processCommand("b"), message);
+		assertEquals(m.processCommand("b 12"), message);
+		assertEquals(m.processCommand("b b b"), message);
+		assertEquals(m.processCommand("b b b b"), message);
+		assertEquals(m.processCommand("b 1 0 b"), message);
+		assertEquals(m.processCommand("b 0 0 br st q "), message);
+		assertEquals(m.processCommand("b  3"), message);
+		assertEquals(m.processCommand("b   3"), message);
+		assertEquals(m.processCommand("b  0"), message); 
+		assertEquals(m.processCommand("b     0"), message);
+		assertEquals(m.processCommand("b   "), message);
+		assertEquals(m.processCommand("b          "), message);
+		
+		//Tests CASE 'R' inputs
+		assertEquals(m.processCommand("r"), message);
+		assertEquals(m.processCommand("r 3"), message);
+		assertEquals(m.processCommand("r -1"), message);
+
+		
+		//Tests INVALID COMMAND
+		message = "Command not found\nSomething useful, like probably "
+				+ "the updated LinkList";
+		assertEquals(m.processCommand("pizza"), message);
+		assertEquals(m.processCommand("B 1 0"), message);
+	}
+	
+	/*******************************************************************
 	 * Tests: remove(int position) in Mix.java
 	 ******************************************************************/
 	@Test
 	public void testRemove(){
+		
 		Mix m = new Mix();
 		m.setInitialMessage("PIZZA pizza");
 		
 		m.remove(0);
 		assertEquals(m.messageToString(), "I Z Z A   p i z z a ");
 		assertEquals(m.getCommands(), "bpizzaPpizza0\n");
+		
+		m.remove(1);
+		assertEquals(m.messageToString(), "I Z A   p i z z a ");
+		assertEquals(m.getCommands(), "bpizzaZpizza1\nbpizzaPpizza0\n");
 	}
 	
 	/*******************************************************************
@@ -97,6 +303,7 @@ public class MixUnMixTests {
 	 ******************************************************************/
 	@Test
 	public void testRemoveAtIndex(){
+		
 		LinkList<String> link = new LinkList<String>();
 		link.addFirst("P");
 		link.addAtEnd("i");
@@ -126,6 +333,7 @@ public class MixUnMixTests {
 	 ******************************************************************/
 	@Test (expected = IllegalArgumentException.class)
 	public void testRemoveAtIndex2(){
+		
 		LinkList<String> link = new LinkList<String>();
 		link.removeAtIndex(0);
 	}
@@ -136,36 +344,9 @@ public class MixUnMixTests {
 	 ******************************************************************/
 	@Test (expected = IllegalArgumentException.class)
 	public void testRemoveAtIndex3(){
+		
 		LinkList<String> link = new LinkList<String>();
 		link.removeAtIndex(-1);
-	}
-	
-	/*******************************************************************
-	 * Tests: processCommand(String command) in Mix.java with improper 
-	 * 		  commands
-	 ******************************************************************/
-	@Test 
-	public void testProcessCommand2(){
-		String message = "Unable to process command: incorrect format!"
-				+ "\nSomething useful, like probably "
-				+ "the updated LinkList";
-		
-		//Tests CASE 'B' inputs 
-		Mix m = new Mix();
-		m.setInitialMessage("AB");
-		
-		assertEquals(m.processCommand("b 12 0"), message);
-		assertEquals(m.processCommand("b aa 0"), message);
-		assertEquals(m.processCommand("b"), message);
-		assertEquals(m.processCommand("b 12"), message);
-		assertEquals(m.processCommand("b b b"), message);
-
-		
-		//Tests INVALID COMMAND
-		message = "Command not found\nSomething useful, like probably "
-				+ "the updated LinkList";
-		assertEquals(m.processCommand("pizza"), message);
-		assertEquals(m.processCommand("B 1 0"), message);
 	}
 	
 	/*******************************************************************
@@ -222,6 +403,7 @@ public class MixUnMixTests {
 	 ******************************************************************/
 	@Test
 	public void testSetInitialMessage(){
+		
 		Mix m1 = new Mix();
 		m1.setInitialMessage("abcdefghijklmnopqrstuvwxyz");
 		assertEquals(m1.messageToString(), 

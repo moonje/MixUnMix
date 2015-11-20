@@ -1,9 +1,6 @@
 package mixUnMix;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Arrays;
 
 /***********************************************************************
@@ -37,7 +34,8 @@ public class Mix implements IMix{
 			+ "ending at # (inclusive)\n"
 			+ "p #\t\t means PASTE from the clipboard, starting at #\n"
 			+ "c & #\t\t means COPY to clipboard, starting at & and "
-			+ "ending at # (inclusive)";
+			+ "ending at # (inclusive)\n"
+			+ "h\t\t displays this message again";
 	
 	/** Generic Error Message **/
 	final String error = "Unable to process command: incorrect format!";
@@ -107,26 +105,18 @@ public class Mix implements IMix{
 	 * 
 	 * @param pos1 the location of one of the characters to be switched
 	 * @param pos2 the location of the other character to be switched
+	 * @throws IllegalArgumentException
 	 ******************************************************************/
-	public void switchPosition(int pos1, int pos2){
+	public void switchPosition(int pos1, int pos2) 
+			throws IllegalArgumentException{
 		
-		Node<String> temp1 = message.getTop();
-		
-		for (int i = 0; i < pos1; i++){
-			temp1 = temp1.getNext();
+		try {
+			message.switchNodes(pos1, pos2);
+			commands = "w" + p + pos2 + p + pos1 + "\n" + commands;
+			
+		} catch (Exception e) {
+			throw new IllegalArgumentException();
 		}
-		
-		Node<String> temp2 = message.getTop();
-		
-		for (int i = 0; i < pos2; i++){
-			temp2 = temp2.getNext();
-		}
-		
-		String data = temp1.getData();
-		temp1.setData(temp2.getData());
-		temp2.setData(data);
-		
-		commands = "w" + p + pos2 + p + pos1 + "\n" + commands;
 	}
 	
 	/*******************************************************************
@@ -210,6 +200,13 @@ public class Mix implements IMix{
 			String[] com = command.split(" ");
 			
 			switch (com[0]) {
+			
+			case "h":
+				if (com.length == 1)
+					return cmd;
+				else
+					returnString = error;
+			
 			//quit
 			case "Q":
 				break; 
@@ -218,12 +215,38 @@ public class Mix implements IMix{
 			case "b":
 				
 				//user put in incorrectly formatted command
-				if (com.length != 3 || com[1].length() > 1){
+				if (com[1].length() > 1){
 					returnString = error;
 					
 				} else {
 					try {
-						int index = Integer.parseInt(com[2]);
+						int index = -1; 
+						
+						//Character input is a space
+						if (command.charAt(1) == ' ' &&
+								command.charAt(2) == ' '){
+							
+							if (com.length == 4){
+								index = Integer.parseInt(com[3]);
+								com[1] = " ";
+								
+							//User put in too much
+							} else {
+								returnString = error;
+							}
+							
+						//Character input is not a string
+						} else {
+							
+							if (com.length == 3){
+								index = Integer.parseInt(com[2]);
+								
+							//User put in too much
+							} else {
+								returnString = error;
+							}
+						}
+						
 						insert(com[1], index);
 						
 					} catch (Exception e) {
@@ -252,6 +275,20 @@ public class Mix implements IMix{
 			
 			//switch characters at position & and #
 			case "w":
+				
+				if (com.length ==3 ){
+					try {
+						int pos1 = Integer.parseInt(com[1]);
+						int pos2 = Integer.parseInt(com[2]);
+						
+					} catch (Exception e) {
+						returnString = error; 
+					}
+					
+				} else {
+					returnString = error; 
+				}
+				
 				break; 
 			
 			//save the commands to the filename 	
@@ -276,7 +313,7 @@ public class Mix implements IMix{
 				returnString = "Command not found";
 			}
 		} catch (Exception e) {
-			return returnString = error;
+			returnString = error;
 		}
 
 		return returnString + "\nSomething useful, like probably "
