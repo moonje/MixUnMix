@@ -2,6 +2,7 @@ package mixUnMix;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /***********************************************************************
  * @author Jennifer Moon
@@ -35,7 +36,7 @@ public class Mix implements IMix{
 			+ "p #\t\t means PASTE from the clipboard, starting at #\n"
 			+ "c & #\t\t means COPY to clipboard, starting at & and "
 			+ "ending at # (inclusive)\n"
-			+ "h\t\t displays this message again";
+			+ "h\t\t displays this message again\n";
 	
 	/** Generic Error Message **/
 	final String error = "Unable to process command: incorrect format!";
@@ -316,8 +317,7 @@ public class Mix implements IMix{
 			returnString = error;
 		}
 
-		return returnString + "\nSomething useful, like probably "
-				+ "the updated LinkList";
+		return returnString;
 	}
 
 	/*******************************************************************
@@ -365,5 +365,33 @@ public class Mix implements IMix{
 	 ******************************************************************/
 	public String clipboardToString(){
 		return clipboard.toString();
+	}
+	
+	/*******************************************************************
+	 * Takes in user inputs 
+	 ******************************************************************/
+	public static void main (String args[]){
+		Mix mix = new Mix();
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Enter initial message:");
+		String userMessage = scanner.nextLine();
+		
+		
+		mix.setInitialMessage(userMessage);
+		
+		System.out.print(mix.cmd);
+		System.out.println("Message is: " + userMessage);
+		System.out.println("Command:");
+
+		String input = "";
+		
+	    while ((input = scanner.nextLine()) != "q") {
+	    	mix.processCommand(input);
+	      
+	    	System.out.println(mix.messageToString());
+	    	System.out.println("Command:");
+	    }
 	}
 }
