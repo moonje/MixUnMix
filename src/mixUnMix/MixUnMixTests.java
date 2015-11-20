@@ -467,6 +467,65 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
-	 * Tests: 
+	 * Tests: UnMixUsingFile(String filename, String userMessage) in
+	 * 			UnMix
 	 ******************************************************************/
+	@Test
+	public void testUnMixUsingFile(){
+		
+		Mix m = new Mix();
+		m.setInitialMessage("Pizza");
+		m.insert("M", 0);
+		assertEquals(m.messageToString(), "M P i z z a ");
+		assertEquals(m.getCommands(), "rpizza0\n");
+		m.save("test.txt");
+		
+		UnMix u = new UnMix();
+		assertEquals(u.UnMixUsingFile("test.txt", "MPizza"),
+												"P i z z a ");
+		
+		Mix m2 = new Mix();
+		m2.setInitialMessage("Hello");
+		m2.save("test2.txt");
+		
+		UnMix u2 = new UnMix();
+		assertEquals(u2.UnMixUsingFile("test2.txt", "Hello"),
+												"H e l l o ");
+		
+		Mix m3 = new Mix();
+		m3.setInitialMessage("Hello World");
+		m3.remove(0);
+		assertEquals(m3.messageToString(), "e l l o   W o r l d ");
+		assertEquals(m3.getCommands(), "bpizzaHpizza0\n");
+		m3.insert("J", 0);
+		assertEquals(m3.messageToString(), "J e l l o   W o r l d ");
+		assertEquals(m3.getCommands(), "rpizza0\nbpizzaHpizza0\n");
+		m3.save("test3.txt");
+		
+		UnMix u3 = new UnMix();
+		assertEquals(u3.UnMixUsingFile("test3.txt", "Jello World"),
+											"H e l l o   W o r l d ");
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: UnMixUsingFile(String filename, String userMessage) in
+	 * 			UnMix with file issues
+	 ******************************************************************/
+	@Test
+	public void testUnMixUsingFile2(){
+		
+		UnMix u = new UnMix();
+		assertEquals(u.UnMixUsingFile("testit.txt", "NO"), 
+				"WARNING! File not found!");
+		assertEquals(u.UnMixUsingFile("testit", "NO"), 
+				"WARNING! Only able to open .txt files!");
+		
+	}
+	
+	
+	
+	
+	
+	
 }

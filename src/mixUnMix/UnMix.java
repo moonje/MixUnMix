@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class UnMix implements IUnMix{
 
 	/** LinkList of characters representing a message (String) **/
-	private LinkList message; 
+	//private LinkList message; 
 		
 	/*******************************************************************
 	 * UnMixes the user's message used the given file
@@ -27,6 +27,7 @@ public class UnMix implements IUnMix{
 			throws IllegalArgumentException{
 		
 		Mix mix = new Mix();
+		mix.setInitialMessage(userMessage);
 		
 		//Ensures the user is reading from a .txt file
 		if (filename.substring(filename.lastIndexOf(".") + 1).equals(
@@ -60,9 +61,10 @@ public class UnMix implements IUnMix{
 					
 				}
 				
-				//return the correct string 
 				
 				fileReader.close();
+				
+				return mix.messageToString(); 
 
 			} catch (FileNotFoundException e) {
 				return "WARNING! File not found!";
@@ -75,7 +77,7 @@ public class UnMix implements IUnMix{
 			return "WARNING! Only able to open .txt files!";
 		}
 
-		return null;
+		//return null;
 	}
 	
 	/*******************************************************************
