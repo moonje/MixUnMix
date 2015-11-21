@@ -314,10 +314,10 @@ public class LinkList<E> {
 				str += temp.getData() + " ";
 				
 			} else if (i >= 10 && i < 100) {
-				numbers += i + "  ";
+				numbers += i + " ";
 				str += temp.getData() + "  ";
 			} else {
-				numbers += i + "   ";
+				numbers += i + "  ";
 				str += temp.getData() + "   ";
 			}
 			

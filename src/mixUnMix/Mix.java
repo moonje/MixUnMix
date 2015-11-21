@@ -371,6 +371,16 @@ public class Mix implements IMix{
 	}
 	
 	/*******************************************************************
+	 * Returns a string with the numbers of the nodes and the 
+	 * data of the nodes
+	 * 
+	 * @return String representing message
+	 ******************************************************************/
+	public String toNumbersString(){
+		return message.toNumbersString();
+	}
+	
+	/*******************************************************************
 	 * Takes in user inputs 
 	 ******************************************************************/
 	public static void main (String args[]){
@@ -390,10 +400,10 @@ public class Mix implements IMix{
 
 		String input = "";
 		
-	    while ((input = scanner.nextLine()) != "q") {
+	    while ((input = scanner.nextLine()) != "Q") {
 	    	System.out.println(mix.processCommand(input));
 	      
-	    	System.out.println(mix.messageToString());
+	    	System.out.println(mix.toNumbersString());
 	    	System.out.println("Command:");
 	    }
 	}
