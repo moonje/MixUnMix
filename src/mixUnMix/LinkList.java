@@ -291,4 +291,42 @@ public class LinkList<E> {
 		//case 3: data not found
 		return false;
 	}
+	
+	/*******************************************************************
+	 * Converts the LinkList information to a String with numbers by 
+	 * index 
+	 * 
+	 * @return string representing the LinkList with numbers
+	 ******************************************************************/
+	public String toNumbersString() {
+
+		String str = "";
+		Node<E> temp = top;
+		
+		String numbers = "";
+		int i = 0; 
+		
+		//prints the data from each node
+		while (temp != null) {
+			
+			if (i < 10){
+				numbers += i + " ";
+				str += temp.getData() + " ";
+				
+			} else if (i >= 10 && i < 100) {
+				numbers += i + "  ";
+				str += temp.getData() + "  ";
+			} else {
+				numbers += i + "   ";
+				str += temp.getData() + "   ";
+			}
+			
+			temp = temp.getNext();
+			i++;
+		}
+		
+		str = numbers + "\n" + str + "\n"; 
+		
+		return str; 
+	}
 }
