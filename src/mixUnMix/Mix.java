@@ -210,6 +210,7 @@ public class Mix implements IMix{
 			
 			//quit
 			case "Q":
+				quit();
 				break; 
 			
 			//insert char c before position #
@@ -295,6 +296,7 @@ public class Mix implements IMix{
 			
 			//save the commands to the filename 	
 			case "s":
+				save(com[1]);
 				break; 
 				
 			//cut to the clipboard, starting at & to # (inclusive)

@@ -55,10 +55,16 @@ public class UnMix implements IUnMix{
 						mix.switchPosition(Integer.parseInt(part[1]),
 											Integer.parseInt(part[2]));
 						
-					} /* else if (other things) { */
+					}else if (part[0].equals("x")) {
 					
 					//add more relevant things here.
-					
+					}else if (part[0].equals("p")) {
+						
+						
+					}else if (part[0].equals("c")) {
+						
+						
+					}
 				}
 				
 				
@@ -88,10 +94,10 @@ public class UnMix implements IUnMix{
 		Scanner scanner = new Scanner(System.in);
 		
 		System.out.println("Enter in the mixed up message:");
-		String userMessage = scanner.next();
+		String userMessage = scanner.nextLine();
 		
 		System.out.println("Enter in the file to unmix the message:");
-		String filename = scanner.next();
+		String filename = scanner.nextLine();
 		
 		System.out.println("The original message was:");
 		System.out.println(unmix.UnMixUsingFile(filename, userMessage));
