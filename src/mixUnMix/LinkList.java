@@ -346,6 +346,7 @@ public class LinkList<E> {
 		String numbers = "";
 		int i = 0; 
 		
+		
 		//prints the data from each node
 		while (temp != null) {
 			

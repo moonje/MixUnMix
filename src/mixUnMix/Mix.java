@@ -179,6 +179,7 @@ public class Mix implements IMix{
 	public void paste(int position){
 		
 		
+		
 	}
 	
 	/*******************************************************************
