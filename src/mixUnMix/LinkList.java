@@ -244,6 +244,46 @@ public class LinkList<E> {
 		else 
 			throw new IllegalArgumentException();
 	}
+	
+	/*******************************************************************
+	 * Gets a node at the specified index 
+	 * 
+	 * @return E, data that was requested
+	 * @param position, the index of the Node
+	 * @throws IllegalArgumentException
+	 ******************************************************************/
+	public E getAtIndex(int position) 
+			throws IllegalArgumentException{
+		
+		E data = null; 
+		
+		//case 0: no list or index too large
+		if (top == null || position >= count() || position < 0){
+			throw new IllegalArgumentException();
+		}
+		
+		//case 1: found at first node 
+		if (position == 0) {
+			data = top.getData();
+			
+			return data;
+		}
+		
+		//case 2: found in middle
+		
+		Node<E> pointer = top;
+		
+		//Finds the node at the specified index
+		for (int i = 0; i < position - 1; i++){
+			pointer = pointer.getNext();
+		}
+			data = pointer.getNext().getData();
+		
+		if (data != null)
+			return data;
+		else 
+			throw new IllegalArgumentException();
+	}
 
 	/*******************************************************************
 	 * Removes a specified Node from the LinkList

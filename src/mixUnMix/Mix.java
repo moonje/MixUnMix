@@ -159,7 +159,14 @@ public class Mix implements IMix{
 	 ******************************************************************/
 	public void cut(int pos1, int pos2){
 		
-		
+		clipboard.addFirst(message.getAtIndex(pos1));
+		int count = pos2 - pos1;
+		for(int i = 1; i <= count; i++){
+			clipboard.addBeforeIndex(i, message.getAtIndex(pos1 + i));
+		}
+		for(int i = 0; i <= count; i++){
+			message.removeAtIndex(pos1);
+		}
 	}
 	
 	/*******************************************************************
@@ -183,6 +190,11 @@ public class Mix implements IMix{
 	 ******************************************************************/
 	public void copy(int pos1, int pos2){
 		
+		clipboard.addFirst(message.getAtIndex(pos1));
+		int count = pos2 - pos1;
+		for(int i = 1; i <= count; i++){
+			clipboard.addBeforeIndex(i, message.getAtIndex(pos1 + i));
+		}
 		
 	}
 	
@@ -301,6 +313,7 @@ public class Mix implements IMix{
 				
 			//cut to the clipboard, starting at & to # (inclusive)
 			case "x":
+				cut(Integer.parseInt(com[1]),Integer.parseInt(com[2]));
 				break; 
 				
 				
@@ -310,6 +323,7 @@ public class Mix implements IMix{
 				
 			//copy to clipboard, starting at & to # (inclusive)
 			case "c":
+				copy(Integer.parseInt(com[1]),Integer.parseInt(com[2]));
 				break; 
 				
 			//Command doesn't exist 
@@ -395,7 +409,8 @@ public class Mix implements IMix{
 		mix.setInitialMessage(userMessage);
 		
 		System.out.print(mix.cmd);
-		System.out.println("Message is: " + userMessage);
+		System.out.println("Message is:");
+		System.out.println(mix.toNumbersString());
 		System.out.println("Command:");
 
 		String input = "";
