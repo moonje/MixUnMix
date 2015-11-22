@@ -274,9 +274,9 @@ public class MixUnMixTests {
 		
 		Mix m = new Mix();
 		
-		//Tests CASE 'H' inputs
-		assertEquals(m.processCommand("h  a"), message);
-		assertEquals(m.processCommand("h 0"), message);
+//		//Tests CASE 'H' inputs
+//		assertEquals(m.processCommand("h  a"), message);
+//		assertEquals(m.processCommand("h 0"), message);
 		
 		//Tests CASE 'B' inputs 
 		m.setInitialMessage("AB");
@@ -475,7 +475,7 @@ public class MixUnMixTests {
 		m.insert("M", 0);
 		assertEquals(m.messageToString(), "M P i z z a ");
 		assertEquals(m.getCommands(), "r 0\n");
-		m.save("test.txt");
+		m.save("test");
 		
 		UnMix u = new UnMix();
 		assertEquals(u.UnMixUsingFile("test.txt", "MPizza"),
@@ -519,10 +519,4 @@ public class MixUnMixTests {
 				"WARNING! Only able to open .txt files!");
 		
 	}
-	
-	
-	
-	
-	
-	
 }
