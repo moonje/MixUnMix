@@ -229,7 +229,7 @@ public class UnMix implements IUnMix{
 	 * 
 	 * @param msg the user's message
 	 ******************************************************************/
-	public void setMixedMessage(String msg) {
+	public void setMessage(String msg) {
 		
 		String[] characters = msg.split("(?<!^)");
 		
@@ -266,50 +266,26 @@ public class UnMix implements IUnMix{
 			throws IllegalArgumentException{
 		
 		UnMix unmix = new UnMix();
-		unmix.setMixedMessage(userMessage);
+		unmix.setMessage(userMessage);
+		System.out.println(unmix.messageToString());
+		Scanner fileReader = null;
 		
 		//Ensures the user is reading from a .txt file
 		if (filename.substring(filename.lastIndexOf(".") + 1).equals(
 				"txt")) {
 
 			try {
-				Scanner fileReader = new Scanner(new File(filename));
-
+				fileReader = new Scanner(new File(filename));
 
 				while (fileReader.hasNextLine()) {
-					
 					String text = fileReader.nextLine();
-					String [] part = text.split("pizza");
-					
-					if (part[0].equals("r")){
-						
-						unmix.remove(Integer.parseInt(part[1]));
-						
-					} else if (part[0].equals("b")){
-
-						unmix.insert(part[1], Integer.parseInt(part[2]));
-						
-					} else if (part[0].equals("w")){
-			
-						unmix.switchPosition(Integer.parseInt(part[1]),
-											Integer.parseInt(part[2]));
-						
-					}else if (part[0].equals("x")) {
-					
-					//add more relevant things here.
-					}else if (part[0].equals("p")) {
-						
-						
-					}else if (part[0].equals("c")) {
-						
-						
-					}
+					processCommand(text);
 				}
-				
 				
 				fileReader.close();
 				
-				return unmix.messageToString(); 
+				return "The original message was:\n" + 
+						unmix.messageToString(); 
 
 			} catch (FileNotFoundException e) {
 				return "WARNING! File not found!";
@@ -321,8 +297,6 @@ public class UnMix implements IUnMix{
 		} else {
 			return "WARNING! Only able to open .txt files!";
 		}
-
-		//return null;
 	}
 	
 	/*******************************************************************
@@ -338,7 +312,6 @@ public class UnMix implements IUnMix{
 		System.out.println("Enter in the file to unmix the message:");
 		String filename = scanner.nextLine();
 		
-		System.out.println("The original message was:");
 		System.out.println(unmix.UnMixUsingFile(filename, userMessage));
 	}
 }
