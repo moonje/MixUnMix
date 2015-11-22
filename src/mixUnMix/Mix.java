@@ -133,7 +133,7 @@ public class Mix implements IMix{
 		
 		try {
 			out = new PrintWriter(new BufferedWriter(new FileWriter
-					(filename)));
+					(filename + ".txt")));
 
 			out.print(commands);
 			
