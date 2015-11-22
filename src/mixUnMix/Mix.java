@@ -22,7 +22,7 @@ public class Mix implements IMix{
 	private String commands = "";
 	
 	/** pizza **/
-	final String p = "pizza";
+	final String p = /*"pizza"*/ " ";
 	
 	/** The Initial Set of Commands **/
 	public String cmd = "Q\t\t means QUIT\n"
