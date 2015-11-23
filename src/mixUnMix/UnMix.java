@@ -204,8 +204,8 @@ public class UnMix implements IUnMix{
 				
 			//cut to the clipboard, starting at & to # (inclusive)
 			case "x":
-				break; 
-				
+				cut(Integer.parseInt(com[1]),Integer.parseInt(com[2]));
+				break; 	
 				
 			//paste from clipboard, starting at #
 			case "p":
@@ -213,6 +213,23 @@ public class UnMix implements IUnMix{
 				
 			//copy to clipboard, starting at & to # (inclusive)
 			case "c":
+				
+				//user put in incorrectly formatted command
+				if (com.length != 3){
+					throw new IllegalArgumentException();
+					
+				} else {
+					try {
+						int start = Integer.parseInt(com[1]);
+						int end = Integer.parseInt(com[2]);
+						copy(start, end);
+						
+					//user didn't put in numbers
+					} catch (Exception e) {
+						throw new IllegalArgumentException();
+					}
+				}
+				
 				break; 
 				
 			//Command doesn't exist 
@@ -268,7 +285,6 @@ public class UnMix implements IUnMix{
 
 		setMessage(userMessage);
 		System.out.println(messageToString());
-		//Scanner fileReader = null;
 		
 		//Ensures the user is reading from a .txt file
 		if (filename.substring(filename.lastIndexOf(".") + 1).equals(

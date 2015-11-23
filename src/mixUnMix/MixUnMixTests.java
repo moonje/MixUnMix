@@ -513,10 +513,29 @@ public class MixUnMixTests {
 	public void testUnMixUsingFile2(){
 		
 		UnMix u = new UnMix();
-		assertEquals(u.UnMixUsingFile("testit.txt", "NO"), 
+		assertEquals(u.UnMixUsingFile("test6.txt", "NO"), 
 				"WARNING! File not found!");
-		assertEquals(u.UnMixUsingFile("testit", "NO"), 
+		assertEquals(u.UnMixUsingFile("test6", "NO"), 
 				"WARNING! Only able to open .txt files!");
-		
 	}
+	
+	/*******************************************************************
+	 * FERGUSOR TEST
+	 ******************************************************************/
+    @Test 
+    public void testUndoProcessCommand() {
+        	// Creates the file for testing, 
+    		// this code could be removed if the file already exist
+    		Mix message = new Mix();
+        	message.setInitialMessage ("This is a secret message");
+        	message.processCommand("b a 0");
+        	String userMessage = message.messageToString();
+        	message.processCommand("s testIt");
+       
+        	UnMix unMessage = new UnMix();
+        	String original = unMessage.UnMixUsingFile ("testIt.txt", 
+        			userMessage);
+        	assertEquals(original, "This is a secret message");
+    }
+
 }
