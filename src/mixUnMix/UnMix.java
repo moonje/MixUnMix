@@ -15,11 +15,15 @@ public class UnMix implements IUnMix{
 	/** LinkList of characters representing a message (String) **/
 	private LinkList<String> message; 
 	
+	/** The clipboard **/
+	private LinkList<String> clipboard;
+	
 	/*******************************************************************
 	 * Default constructor for Mix
 	 ******************************************************************/
 	public UnMix(){
 		message = new LinkList<String>();
+		clipboard = new LinkList<String>();
 	}
 	
 	/*******************************************************************
@@ -80,7 +84,18 @@ public class UnMix implements IUnMix{
 	 ******************************************************************/
 	public void cut(int pos1, int pos2){
 		
+		clipboard.deleteAll();
+		clipboard.addFirst(message.getAtIndex(pos1));
 		
+		int count = pos2 - pos1;
+		
+		for(int i = 1; i <= count; i++){
+			clipboard.addBeforeIndex(i, message.getAtIndex(pos1 + i));
+		}
+		
+		for(int i = 0; i <= count; i++){
+			message.removeAtIndex(pos1);
+		}
 	}
 	
 	/*******************************************************************
@@ -91,8 +106,10 @@ public class UnMix implements IUnMix{
 	 * 			the clipboard
 	 ******************************************************************/
 	public void paste(int position){
-		
-		
+		for(int i = clipboard.count() - 1; i >= 0; i--){
+			message.addBeforeIndex(position + 1, 
+					clipboard.getAtIndex(i));
+		}
 	}
 	
 	/*******************************************************************
@@ -104,7 +121,14 @@ public class UnMix implements IUnMix{
 	 ******************************************************************/
 	public void copy(int pos1, int pos2){
 		
+		clipboard.deleteAll();
+		clipboard.addFirst(message.getAtIndex(pos1));
 		
+		int count = pos2 - pos1;
+		
+		for(int i = 1; i <= count; i++){
+			clipboard.addBeforeIndex(i, message.getAtIndex(pos1 + i));
+		}
 	}
 	
 	/*******************************************************************
@@ -199,16 +223,42 @@ public class UnMix implements IUnMix{
 				} else {
 					throw new IllegalArgumentException(); 
 				}
-				
 				break; 
 				
 			//cut to the clipboard, starting at & to # (inclusive)
 			case "x":
-				cut(Integer.parseInt(com[1]),Integer.parseInt(com[2]));
+				
+				//user put in incorrectly formatted command
+				if (com.length != 3){
+					throw new IllegalArgumentException();
+					
+				} else {
+					try {
+						int start = Integer.parseInt(com[1]);
+						int end = Integer.parseInt(com[2]);
+						cut(start, end);
+						
+					//user didn't put in numbers
+					} catch (Exception e) {
+						throw new IllegalArgumentException();
+					}
+				}
 				break; 	
 				
 			//paste from clipboard, starting at #
 			case "p":
+				
+				if(com.length != 3){
+					throw new IllegalArgumentException();
+					
+				} else {
+					try{
+						int pos1 = Integer.parseInt(com[1]);
+						paste(pos1);
+					} catch (Exception e){
+						throw new IllegalArgumentException();
+					}
+				}
 				break; 
 				
 			//copy to clipboard, starting at & to # (inclusive)
@@ -229,7 +279,6 @@ public class UnMix implements IUnMix{
 						throw new IllegalArgumentException();
 					}
 				}
-				
 				break; 
 				
 			//Command doesn't exist 
@@ -282,7 +331,6 @@ public class UnMix implements IUnMix{
 	public String UnMixUsingFile(String filename, String userMessage) 
 			throws IllegalArgumentException{
 		
-
 		setMessage(userMessage);
 		System.out.println(messageToString());
 		

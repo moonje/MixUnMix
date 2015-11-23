@@ -168,6 +168,8 @@ public class Mix implements IMix{
 		for(int i = 0; i <= count; i++){
 			message.removeAtIndex(pos1);
 		}
+		
+		//ADD TO COMMANDS
 	}
 	
 	/*******************************************************************
@@ -184,6 +186,8 @@ public class Mix implements IMix{
 					clipboard.getAtIndex(i));
 		}
 		
+		//ADD TO COMMANDS
+		
 	}
 	
 	/*******************************************************************
@@ -197,10 +201,14 @@ public class Mix implements IMix{
 		
 		clipboard.deleteAll();
 		clipboard.addFirst(message.getAtIndex(pos1));
+		
 		int count = pos2 - pos1;
+		
 		for(int i = 1; i <= count; i++){
 			clipboard.addBeforeIndex(i, message.getAtIndex(pos1 + i));
 		}
+		
+		//ADD TO COMMANDS
 		
 	}
 	
@@ -309,12 +317,15 @@ public class Mix implements IMix{
 				} else {
 					returnString = error; 
 				}
-				
 				break; 
 			
 			//save the commands to the filename 	
 			case "s":
-				save(com[1]);
+				if (com.length == 2){
+					save(com[1]);
+				} else {
+					throw new IllegalArgumentException();
+				}
 				break; 
 				
 			//cut to the clipboard, starting at & to # (inclusive)
@@ -356,9 +367,7 @@ public class Mix implements IMix{
 					} catch (Exception e){
 						
 						returnString = error;
-						
 					}
-					
 				}
 				break; 
 				
@@ -440,7 +449,6 @@ public class Mix implements IMix{
 		
 		System.out.println("Enter initial message:");
 		String userMessage = scanner.nextLine();
-		
 		
 		mix.setInitialMessage(userMessage);
 		
