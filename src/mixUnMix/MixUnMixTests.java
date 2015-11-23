@@ -41,13 +41,13 @@ public class MixUnMixTests {
     	link.addAtEnd("a");
     	
     	link.switchNodes(0, 1);
-    	assertEquals(link.toString(), "i p z z a ");
+    	assertEquals(link.toString(), "ipzza");
     	
     	link.switchNodes(1, 0);
-    	assertEquals(link.toString(), "p i z z a ");
+    	assertEquals(link.toString(), "pizza");
     	
     	link.switchNodes(0, 4);
-    	assertEquals(link.toString(), "a i z z p ");
+    	assertEquals(link.toString(), "aizzp");
     }
     
 	/*******************************************************************
@@ -150,23 +150,23 @@ public class MixUnMixTests {
     	
     	m.setInitialMessage("pizza");
     	m.switchPosition(1, 3);
-    	assertEquals(m.messageToString(), "p z z i a ");
+    	assertEquals(m.messageToString(), "pzzia");
     	assertEquals(m.getCommands(), "w 3 1\n");
     	
     	Mix m2 = new Mix();
     	m2.setInitialMessage("This is a test.");
     	m2.switchPosition(0, 4);
     	assertEquals(m2.messageToString(), 
-    			"  h i s T i s   a   t e s t . ");
+    			" hisTis a test.");
     	assertEquals(m2.getCommands(), "w 4 0\n");
     	
     	Mix m3 = new Mix();
     	m3.setInitialMessage("Hello");
     	m3.switchPosition(2, 3);
-    	assertEquals(m3.messageToString(), "H e l l o ");
+    	assertEquals(m3.messageToString(), "Hello");
     	assertEquals(m3.getCommands(), "w 3 2\n");
     	m3.switchPosition(0, 4);
-    	assertEquals(m3.messageToString(), "o e l l H ");
+    	assertEquals(m3.messageToString(), "oellH");
     	assertEquals(m3.getCommands(), 
     			"w 4 0\nw 3 2\n");
     }
@@ -193,11 +193,11 @@ public class MixUnMixTests {
 		Mix m = new Mix(); 
 		
 		m.insert("A", 0);
-		assertEquals(m.messageToString(), "A ");
+		assertEquals(m.messageToString(), "A");
 		assertEquals(m.getCommands(), "r 0\n");
 		
 		m.insert("B", 1);
-		assertEquals(m.messageToString(), "A B ");
+		assertEquals(m.messageToString(), "AB");
 		assertEquals(m.getCommands(), "r 1\nr 0\n");
 	}
 	
@@ -232,32 +232,32 @@ public class MixUnMixTests {
 		m.setInitialMessage("13");
 		
 		m.processCommand("b 0 0");
-		assertEquals(m.messageToString(), "0 1 3 ");
+		assertEquals(m.messageToString(), "013");
 		
 		m.processCommand("b 2 2");
-		assertEquals(m.messageToString(), "0 1 2 3 ");
+		assertEquals(m.messageToString(), "0123");
 		
 		m.processCommand("b A 3");
-		assertEquals(m.messageToString(), "0 1 2 A 3 ");
+		assertEquals(m.messageToString(), "012A3");
 		
 		m.processCommand("b   3");
-		assertEquals(m.messageToString(), "0 1 2   A 3 ");
+		assertEquals(m.messageToString(), "012 A3");
 		
 		//Tests correct CASE 'R' inputs
 		m = new Mix();
 		m.setInitialMessage("pizza");
 		
 		m.processCommand("r 1");
-		assertEquals(m.messageToString(), "p z z a ");
+		assertEquals(m.messageToString(), "pzza");
 		
 		m.processCommand("r 0");
-		assertEquals(m.messageToString(), "z z a ");
+		assertEquals(m.messageToString(), "zza");
 		
 		m.processCommand("r 2");
-		assertEquals(m.messageToString(), "z z ");
+		assertEquals(m.messageToString(), "zz");
 		
 		m.processCommand("r 0");
-		assertEquals(m.messageToString(), "z ");
+		assertEquals(m.messageToString(), "z");
 		
 		m.processCommand("r 0");
 		assertEquals(m.messageToString(), "");
@@ -318,11 +318,11 @@ public class MixUnMixTests {
 		m.setInitialMessage("PIZZA pizza");
 		
 		m.remove(0);
-		assertEquals(m.messageToString(), "I Z Z A   p i z z a ");
+		assertEquals(m.messageToString(), "IZZA pizza");
 		assertEquals(m.getCommands(), "b P 0\n");
 		
 		m.remove(1);
-		assertEquals(m.messageToString(), "I Z A   p i z z a ");
+		assertEquals(m.messageToString(), "IZA pizza");
 		assertEquals(m.getCommands(), "b Z 1\nb P 0\n");
 	}
 	
@@ -340,16 +340,16 @@ public class MixUnMixTests {
 		link.addAtEnd("a");
 		
 		link.removeAtIndex(0);
-		assertEquals(link.toString(), "i z s a ");
+		assertEquals(link.toString(), "izsa");
 		
 		link.removeAtIndex(1);
-		assertEquals(link.toString(), "i s a ");
+		assertEquals(link.toString(), "isa");
 		
 		link.removeAtIndex(1);
-		assertEquals(link.toString(), "i a ");
+		assertEquals(link.toString(), "ia");
 		
 		link.removeAtIndex(1);
-		assertEquals(link.toString(), "i ");
+		assertEquals(link.toString(), "i");
 		
 		link.removeAtIndex(0);
 		assertEquals(link.toString(), "");
@@ -386,22 +386,22 @@ public class MixUnMixTests {
 		LinkList<String> link = new LinkList<String>();
 		
 		link.addBeforeIndex(0, "A");
-		assertEquals(link.toString(), "A ");
+		assertEquals(link.toString(), "A");
 		
 		link.addBeforeIndex(1, "B");
-		assertEquals(link.toString(), "A B ");
+		assertEquals(link.toString(), "AB");
 		
 		link.addBeforeIndex(1, "C");
-		assertEquals(link.toString(), "A C B ");
+		assertEquals(link.toString(), "ACB");
 		
 		link.addBeforeIndex(0, "D");
-		assertEquals(link.toString(), "D A C B ");
+		assertEquals(link.toString(), "DACB");
 		
 		link.addBeforeIndex(4, "E");
-		assertEquals(link.toString(), "D A C B E ");
+		assertEquals(link.toString(), "DACBE");
 		
 		link.addBeforeIndex(2, "F");
-		assertEquals(link.toString(), "D A F C B E ");
+		assertEquals(link.toString(), "DAFCBE");
 	}
 	
 	/*******************************************************************
@@ -435,32 +435,32 @@ public class MixUnMixTests {
 		Mix m1 = new Mix();
 		m1.setInitialMessage("abcdefghijklmnopqrstuvwxyz");
 		assertEquals(m1.messageToString(), 
-				"a b c d e f g h i j k l m n o p q r s t u v w x y z ");
+				"abcdefghijklmnopqrstuvwxyz");
 		
 		m1 = new Mix();
 		m1.setInitialMessage(" ");
-		assertEquals(m1.messageToString(),"  ");
+		assertEquals(m1.messageToString()," ");
 		
 		m1 = new Mix(); 
 		m1.setInitialMessage("   ");
-		assertEquals(m1.messageToString(), "      ");
+		assertEquals(m1.messageToString(), "   ");
 		
 		m1 = new Mix();
 		m1.setInitialMessage("! ? ! ? !");
-		assertEquals(m1.messageToString(), "!   ?   !   ?   ! ");
+		assertEquals(m1.messageToString(), "! ? ! ? !");
 		
 		//CHECK ME OUT
 		m1 = new Mix();
 		m1.setInitialMessage("");
-		assertEquals(m1.messageToString(), " ");
+		assertEquals(m1.messageToString(), "");
 		
 		m1 = new Mix();
 		m1.setInitialMessage("	"); //tab
-		assertEquals(m1.messageToString(), "	 ");
+		assertEquals(m1.messageToString(), "	");
 		
 		m1 = new Mix();
 		m1.setInitialMessage("| & 1 ~ `' ");
-		assertEquals(m1.messageToString(), "|   &   1   ~   ` '   ");
+		assertEquals(m1.messageToString(), "| & 1 ~ `' ");
 	}
 	
 	/*******************************************************************
@@ -473,13 +473,13 @@ public class MixUnMixTests {
 		Mix m = new Mix();
 		m.setInitialMessage("Pizza");
 		m.insert("M", 0);
-		assertEquals(m.messageToString(), "M P i z z a ");
+		assertEquals(m.messageToString(), "MPizza");
 		assertEquals(m.getCommands(), "r 0\n");
 		m.save("test");
 		
 		UnMix u = new UnMix();
 		assertEquals(u.UnMixUsingFile("test.txt", "MPizza"),
-							"The original message was:\nP i z z a ");
+							"The original message was:\nPizza");
 		
 		Mix m2 = new Mix();
 		m2.setInitialMessage("Hello");
@@ -487,21 +487,21 @@ public class MixUnMixTests {
 		
 		UnMix u2 = new UnMix();
 		assertEquals(u2.UnMixUsingFile("test2.txt", "Hello"),
-							"The original message was:\nH e l l o ");
+							"The original message was:\nHello");
 		
 		Mix m3 = new Mix();
 		m3.setInitialMessage("Hello World");
 		m3.remove(0);
-		assertEquals(m3.messageToString(), "e l l o   W o r l d ");
+		assertEquals(m3.messageToString(), "ello World");
 		assertEquals(m3.getCommands(), "b H 0\n");
 		m3.insert("J", 0);
-		assertEquals(m3.messageToString(), "J e l l o   W o r l d ");
+		assertEquals(m3.messageToString(), "Jello World");
 		assertEquals(m3.getCommands(), "r 0\nb H 0\n");
 		m3.save("test3.txt");
 		
 		UnMix u3 = new UnMix();
 		assertEquals(u3.UnMixUsingFile("test3.txt", "Jello World"),
-				"The original message was:\nH e l l o   W o r l d ");
+				"The original message was:\nHello World");
 		
 	}
 	
@@ -535,7 +535,8 @@ public class MixUnMixTests {
         	UnMix unMessage = new UnMix();
         	String original = unMessage.UnMixUsingFile ("testIt.txt", 
         			userMessage);
-        	assertEquals(original, "This is a secret message");
+        	assertEquals(original, "The original message was:\n"
+        			+ "This is a secret message");
     }
 
 }
