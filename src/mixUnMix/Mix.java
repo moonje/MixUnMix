@@ -300,7 +300,7 @@ public class Mix implements IMix{
 					try {
 						int pos1 = Integer.parseInt(com[1]);
 						int pos2 = Integer.parseInt(com[2]);
-						message.switchNodes(pos1, pos2);
+						switchPosition(pos1, pos2);
 						
 					} catch (Exception e) {
 						returnString = error; 
@@ -319,18 +319,46 @@ public class Mix implements IMix{
 				
 			//cut to the clipboard, starting at & to # (inclusive)
 			case "x":
-				cut(Integer.parseInt(com[1]),Integer.parseInt(com[2]));
+				if(com.length == 3){
+					try{
+						int pos1 = Integer.parseInt(com[1]);
+						int pos2 = Integer.parseInt(com[2]);
+						cut(pos1, pos2);
+					} catch (Exception e){
+						
+						returnString = error;
+					}
+					
+				}
 				break; 
 				
 				
 			//paste from clipboard, starting at #
 			case "p":
-				paste(Integer.parseInt(com[1]));
+				if(com.length == 3){
+					try{
+						int pos1 = Integer.parseInt(com[1]);
+						paste(pos1);
+					} catch (Exception e){
+						
+						returnString = error;
+					}
+				}
 				break; 
 				
 			//copy to clipboard, starting at & to # (inclusive)
 			case "c":
-				copy(Integer.parseInt(com[1]),Integer.parseInt(com[2]));
+				if(com.length == 3){
+					try{
+						int pos1 = Integer.parseInt(com[1]);
+						int pos2 = Integer.parseInt(com[2]);
+						copy(pos1, pos2);
+					} catch (Exception e){
+						
+						returnString = error;
+					}
+					
+				}
 				break; 
 				
 			//Command doesn't exist 
