@@ -479,7 +479,7 @@ public class MixUnMixTests {
 		
 		UnMix u = new UnMix();
 		assertEquals(u.UnMixUsingFile("test.txt", "MPizza"),
-												"P i z z a ");
+							"The original message was:\nP i z z a ");
 		
 		Mix m2 = new Mix();
 		m2.setInitialMessage("Hello");
@@ -487,7 +487,7 @@ public class MixUnMixTests {
 		
 		UnMix u2 = new UnMix();
 		assertEquals(u2.UnMixUsingFile("test2.txt", "Hello"),
-												"H e l l o ");
+							"The original message was:\nH e l l o ");
 		
 		Mix m3 = new Mix();
 		m3.setInitialMessage("Hello World");
@@ -501,7 +501,7 @@ public class MixUnMixTests {
 		
 		UnMix u3 = new UnMix();
 		assertEquals(u3.UnMixUsingFile("test3.txt", "Jello World"),
-											"H e l l o   W o r l d ");
+				"The original message was:\nH e l l o   W o r l d ");
 		
 	}
 	

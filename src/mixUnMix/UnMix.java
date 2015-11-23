@@ -265,17 +265,17 @@ public class UnMix implements IUnMix{
 	public String UnMixUsingFile(String filename, String userMessage) 
 			throws IllegalArgumentException{
 		
-		UnMix unmix = new UnMix();
-		unmix.setMessage(userMessage);
-		System.out.println(unmix.messageToString());
-		Scanner fileReader = null;
+
+		setMessage(userMessage);
+		System.out.println(messageToString());
+		//Scanner fileReader = null;
 		
 		//Ensures the user is reading from a .txt file
 		if (filename.substring(filename.lastIndexOf(".") + 1).equals(
 				"txt")) {
 
 			try {
-				fileReader = new Scanner(new File(filename));
+				Scanner fileReader = new Scanner(new File(filename));
 
 				while (fileReader.hasNextLine()) {
 					String text = fileReader.nextLine();
@@ -285,7 +285,7 @@ public class UnMix implements IUnMix{
 				fileReader.close();
 				
 				return "The original message was:\n" + 
-						unmix.messageToString(); 
+						messageToString(); 
 
 			} catch (FileNotFoundException e) {
 				return "WARNING! File not found!";

@@ -1,2 +1,2 @@
-rpizza0
-bpizzaHpizza0
+r 0
+b H 0
