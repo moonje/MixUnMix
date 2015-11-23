@@ -356,6 +356,7 @@ public class Mix implements IMix{
 					} catch (Exception e){
 						
 						returnString = error;
+						
 					}
 					
 				}
