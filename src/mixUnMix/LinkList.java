@@ -113,7 +113,7 @@ public class LinkList<E> {
 		
 		//prints the data from each node
 		while (temp != null) {
-			str += temp.getData() + " ";
+			str += temp.getData();
 			temp = temp.getNext();
 		}
 		
@@ -330,6 +330,15 @@ public class LinkList<E> {
 		
 		//case 3: data not found
 		return false;
+	}
+	
+	/*******************************************************************
+	 * Deletes all the contents of the linked list
+	 ******************************************************************/
+	public void deleteAll() {
+
+		top = null;
+		tail = null;
 	}
 	
 	/*******************************************************************

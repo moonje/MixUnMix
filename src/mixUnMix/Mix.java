@@ -159,6 +159,7 @@ public class Mix implements IMix{
 	 ******************************************************************/
 	public void cut(int pos1, int pos2){
 		
+		clipboard.deleteAll();
 		clipboard.addFirst(message.getAtIndex(pos1));
 		int count = pos2 - pos1;
 		for(int i = 1; i <= count; i++){
@@ -178,7 +179,10 @@ public class Mix implements IMix{
 	 ******************************************************************/
 	public void paste(int position){
 		
-		
+		for(int i = clipboard.count() - 1; i >= 0; i--){
+			message.addBeforeIndex(position + 1, 
+					clipboard.getAtIndex(i));
+		}
 		
 	}
 	
@@ -191,6 +195,7 @@ public class Mix implements IMix{
 	 ******************************************************************/
 	public void copy(int pos1, int pos2){
 		
+		clipboard.deleteAll();
 		clipboard.addFirst(message.getAtIndex(pos1));
 		int count = pos2 - pos1;
 		for(int i = 1; i <= count; i++){
@@ -320,6 +325,7 @@ public class Mix implements IMix{
 				
 			//paste from clipboard, starting at #
 			case "p":
+				paste(Integer.parseInt(com[1]));
 				break; 
 				
 			//copy to clipboard, starting at & to # (inclusive)
