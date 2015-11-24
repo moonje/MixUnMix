@@ -227,6 +227,27 @@ public class Mix implements IMix{
 	}
 	
 	/*******************************************************************
+	 * Adds a character to the end of the message
+	 * 
+	 * @param pos1 the starting position of the copy
+	 * @param pos2 the ending position of the copy
+	 ******************************************************************/
+	public void allen(String c) throws IllegalArgumentException{
+		
+		try{
+			//adds the character at the end
+			message.addAtEnd(c);
+			//saves the command as remove from the current end
+			commands = "r" + " " + 
+					(message.count() - 1) + "\n" + commands;
+			
+		} catch(Exception e){
+			throw new IllegalArgumentException();
+		}
+		
+	}
+	
+	/*******************************************************************
 	 * Processes the user's command
 	 * 
 	 * @param command, the user's command
@@ -392,6 +413,24 @@ public class Mix implements IMix{
 					} catch (Exception e){
 						
 						returnString = error;
+					}
+				}
+				break; 
+				
+			//insert a char at the end of the message
+			case "a":
+				
+				//user put in incorrectly formatted command
+				if (com.length != 2){
+					returnString = error;
+					
+				} else {
+					try {
+						
+						allen(com[1]);
+						
+					} catch (Exception e) {
+						returnString = error; 
 					}
 				}
 				break; 
