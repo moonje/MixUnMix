@@ -535,6 +535,19 @@ public class MixUnMixTests {
 		UnMix u5 = new UnMix();
 		assertEquals(u5.UnMixUsingFile("nothing.txt", ""), 
 				"The original message was:\nempty");
+		
+		Mix m6 = new Mix();
+		m6.setInitialMessage("hello");
+		m6.processCommand("x 0 1");
+		m6.processCommand("p 3");
+		//m6.cut(0, 1);
+		//m6.paste(3);
+		m6.processCommand("s hello");
+		System.out.println(m6.getCommands());
+		
+		UnMix u6 = new UnMix();
+		assertEquals(u6.UnMixUsingFile("hello.txt", "llohe"), 
+				"The original message was:\nhello");
 	}
 	
 	/*******************************************************************

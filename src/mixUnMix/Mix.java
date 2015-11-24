@@ -174,9 +174,6 @@ public class Mix implements IMix{
 			commands = "b " + message.removeAtIndex(pos1) + 
 					" " + pos1 + "\n" + commands;
 		}
-		
-		//ADD TO COMMANDS
-		//commands = "b " +  commands;
 	}
 	
 	/*******************************************************************
@@ -189,6 +186,8 @@ public class Mix implements IMix{
 	 ******************************************************************/
 	public void paste(int position) throws IllegalArgumentException{
 		
+		String subcommand = "";
+		
 		if (clipboard.getTop() == null){
 			throw new IllegalArgumentException();
 		}
@@ -200,11 +199,11 @@ public class Mix implements IMix{
 		for(int i = clipboard.count() - 1; i >= 0; i--){
 			message.addBeforeIndex(position, 
 					clipboard.getAtIndex(i));
-			
-			//CHECK ME OUT
-			//ADD TO COMMANDS
-			commands = "r " + (position + 1 + i) + "\n" + commands; 
+
+			subcommand = subcommand + "r " + (position + i) + "\n";
 		}
+		commands = subcommand + commands; 
+		
 	}
 	
 	/*******************************************************************
@@ -224,8 +223,6 @@ public class Mix implements IMix{
 		for(int i = 1; i <= count; i++){
 			clipboard.addBeforeIndex(i, message.getAtIndex(pos1 + i));
 		}
-		
-		//ADD TO COMMANDS: no need to, right? 
 	}
 	
 	/*******************************************************************
