@@ -287,7 +287,7 @@ public class Mix implements IMix{
 			case "r":
 				
 				//user put in incorrectly formatted command
-				if (com.length != 2 || com[1].length() > 1){
+				if (com.length != 2){
 					returnString = error;
 					
 				} else {

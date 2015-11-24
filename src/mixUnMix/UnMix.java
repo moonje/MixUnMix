@@ -193,7 +193,7 @@ public class UnMix implements IUnMix{
 			case "r":
 				
 				//user put in incorrectly formatted command
-				if (com.length != 2 || com[1].length() > 1){
+				if (com.length != 2){
 					throw new IllegalArgumentException();
 					
 				} else {
