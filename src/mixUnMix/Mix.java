@@ -21,9 +21,6 @@ public class Mix implements IMix{
 	/** A String of the commands given by the user **/
 	private String commands = "";
 	
-	/** pizza **/
-	final String p = /*"pizza"*/ " ";
-	
 	/** The Initial Set of Commands **/
 	public String cmd = "Q\t\t means QUIT\n"
 			+ "b c #\t\t means INSERT char 'c' before position #\n"
@@ -76,7 +73,7 @@ public class Mix implements IMix{
 		try {
 			message.addBeforeIndex(position, c);
 			
-			commands = "r" + p + position + "\n" + commands;
+			commands = "r" + " " + position + "\n" + commands;
 
 		} catch (IllegalArgumentException e){
 			throw new IllegalArgumentException();
@@ -94,7 +91,7 @@ public class Mix implements IMix{
 		String data = message.removeAtIndex(position);
 		
 		if (data != null){
-			commands = "b" + p + data + p + position + "\n" + commands;
+			commands = "b" + " " + data + " " + position + "\n" + commands;
 		} else {
 			throw new IllegalArgumentException();
 		}
@@ -113,7 +110,7 @@ public class Mix implements IMix{
 		
 		try {
 			message.switchNodes(pos1, pos2);
-			commands = "w" + p + pos2 + p + pos1 + "\n" + commands;
+			commands = "w" + " " + pos2 + " " + pos1 + "\n" + commands;
 			
 		} catch (Exception e) {
 			throw new IllegalArgumentException();
