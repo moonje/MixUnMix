@@ -157,19 +157,29 @@ public class Mix implements IMix{
 	 * @param pos1 the starting position of the cut
 	 * @param pos2 the ending position of the cut
 	 ******************************************************************/
-	public void cut(int pos1, int pos2){
+	public void cut(int pos1, int pos2) throws IllegalArgumentException{
+		
+		if (pos1 < 0 || pos2 < 0 || pos1 > message.count() ||
+				pos2 > message.count()){
+			throw new IllegalArgumentException();
+		}
 		
 		clipboard.deleteAll();
 		clipboard.addFirst(message.getAtIndex(pos1));
+		
 		int count = pos2 - pos1;
+		
 		for(int i = 1; i <= count; i++){
 			clipboard.addBeforeIndex(i, message.getAtIndex(pos1 + i));
 		}
+		
 		for(int i = 0; i <= count; i++){
-			message.removeAtIndex(pos1);
+			commands = "b " + message.removeAtIndex(pos1) + 
+					" " + pos1 + "\n" + commands;
 		}
 		
 		//ADD TO COMMANDS
+		//commands = "b " +  commands;
 	}
 	
 	/*******************************************************************
@@ -178,16 +188,26 @@ public class Mix implements IMix{
 	 * 
 	 * @param position the location of where to paste the contents of
 	 * 			the clipboard
+	 * @throws IllegalArgumentException
 	 ******************************************************************/
-	public void paste(int position){
+	public void paste(int position) throws IllegalArgumentException{
+		
+		if (clipboard.getTop() == null){
+			throw new IllegalArgumentException();
+		}
+		
+		if (position > clipboard.count() + 1 || position < 0){
+			throw new IllegalArgumentException();
+		}
 		
 		for(int i = clipboard.count() - 1; i >= 0; i--){
 			message.addBeforeIndex(position + 1, 
 					clipboard.getAtIndex(i));
+			
+			//CHECK ME OUT
+			//ADD TO COMMANDS
+			commands = "r " + (position + 1 + i) + "\n" + commands; 
 		}
-		
-		//ADD TO COMMANDS
-		
 	}
 	
 	/*******************************************************************
@@ -208,8 +228,7 @@ public class Mix implements IMix{
 			clipboard.addBeforeIndex(i, message.getAtIndex(pos1 + i));
 		}
 		
-		//ADD TO COMMANDS
-		
+		//ADD TO COMMANDS: no need to, right? 
 	}
 	
 	/*******************************************************************
@@ -322,38 +341,49 @@ public class Mix implements IMix{
 			//save the commands to the filename 	
 			case "s":
 				if (com.length == 2){
-					save(com[1]);
+					
+					try {
+						return save (com[1]) + "\nYour mixed message is"
+								+ " " + message.toString() + "\n";
+						
+					} catch (Exception e) {
+						returnString = error;
+					}
 				} else {
-					throw new IllegalArgumentException();
+					returnString = error;
 				}
-				break; 
 				
 			//cut to the clipboard, starting at & to # (inclusive)
 			case "x":
+				
 				if(com.length == 3){
 					try{
 						int pos1 = Integer.parseInt(com[1]);
 						int pos2 = Integer.parseInt(com[2]);
 						cut(pos1, pos2);
-					} catch (Exception e){
 						
+					} catch (Exception e){
 						returnString = error;
 					}
 					
+				} else {
+					returnString = error;
 				}
-				break; 
 				
+				break; 
 				
 			//paste from clipboard, starting at #
 			case "p":
-				if(com.length == 3){
+				if(com.length == 2){
 					try{
 						int pos1 = Integer.parseInt(com[1]);
 						paste(pos1);
-					} catch (Exception e){
 						
+					} catch (Exception e){
 						returnString = error;
 					}
+				} else {
+					returnString = error;
 				}
 				break; 
 				

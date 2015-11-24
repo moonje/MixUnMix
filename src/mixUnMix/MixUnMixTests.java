@@ -261,6 +261,19 @@ public class MixUnMixTests {
 		
 		m.processCommand("r 0");
 		assertEquals(m.messageToString(), "");
+		
+		//Tests correct CASE 'W' inputs
+		m = new Mix();
+		m.setInitialMessage("switch twitch");
+		m.switchPosition(0, 7);
+		assertEquals(m.messageToString(), "twitch switch");
+		
+		m = new Mix();
+		m.setInitialMessage("Jennifer is cool");
+		m.switchPosition(12, 15);
+		assertEquals(m.messageToString(), "Jennifer is looc");
+		m.switchPosition(14, 15);
+		assertEquals(m.messageToString(), "Jennifer is loco");
 	}
 	
 	/*******************************************************************
@@ -273,10 +286,6 @@ public class MixUnMixTests {
 		String message = "Unable to process command: incorrect format!";
 		
 		Mix m = new Mix();
-		
-//		//Tests CASE 'H' inputs
-//		assertEquals(m.processCommand("h  a"), message);
-//		assertEquals(m.processCommand("h 0"), message);
 		
 		//Tests CASE 'B' inputs 
 		m.setInitialMessage("AB");
@@ -483,7 +492,7 @@ public class MixUnMixTests {
 		
 		Mix m2 = new Mix();
 		m2.setInitialMessage("Hello");
-		m2.save("test2.txt");
+		m2.save("test2");
 		
 		UnMix u2 = new UnMix();
 		assertEquals(u2.UnMixUsingFile("test2.txt", "Hello"),
@@ -497,12 +506,35 @@ public class MixUnMixTests {
 		m3.insert("J", 0);
 		assertEquals(m3.messageToString(), "Jello World");
 		assertEquals(m3.getCommands(), "r 0\nb H 0\n");
-		m3.save("test3.txt");
+		m3.save("test3");
 		
 		UnMix u3 = new UnMix();
 		assertEquals(u3.UnMixUsingFile("test3.txt", "Jello World"),
 				"The original message was:\nHello World");
 		
+		Mix m4 = new Mix();
+		m4.setInitialMessage("This is a really long string! "
+				+ "1234567890");
+		m4.remove(4);
+		m4.cut(0, 3);
+		m4.save("jennifertest2");
+		UnMix u4 = new UnMix();
+		assertEquals(u4.UnMixUsingFile("jennifertest2.txt", 
+				"is a really long string! 1234567890"), 
+				"The original message was:\nThis is a really long"
+				+ " string! 1234567890");
+		
+		Mix m5 = new Mix();
+		m5.setInitialMessage("empty");
+		m5.remove(0);
+		m5.remove(0);
+		m5.remove(0);
+		m5.remove(0);
+		m5.remove(0);
+		m5.save("nothing");
+		UnMix u5 = new UnMix();
+		assertEquals(u5.UnMixUsingFile("nothing.txt", ""), 
+				"The original message was:\nempty");
 	}
 	
 	/*******************************************************************

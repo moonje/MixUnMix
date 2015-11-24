@@ -332,7 +332,7 @@ public class UnMix implements IUnMix{
 			throws IllegalArgumentException{
 		
 		setMessage(userMessage);
-		System.out.println(messageToString());
+		//System.out.println(messageToString());
 		
 		//Ensures the user is reading from a .txt file
 		if (filename.substring(filename.lastIndexOf(".") + 1).equals(
