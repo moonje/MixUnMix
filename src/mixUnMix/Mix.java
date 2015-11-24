@@ -33,6 +33,7 @@ public class Mix implements IMix{
 			+ "p #\t\t means PASTE from the clipboard, starting at #\n"
 			+ "c & #\t\t means COPY to clipboard, starting at & and "
 			+ "ending at # (inclusive)\n"
+			+ "a & \t\t appends the message with character &\n"
 			+ "h\t\t displays this message again\n";
 	
 	/** Generic Error Message **/
