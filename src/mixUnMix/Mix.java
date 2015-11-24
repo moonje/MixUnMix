@@ -198,7 +198,7 @@ public class Mix implements IMix{
 		}
 		
 		for(int i = clipboard.count() - 1; i >= 0; i--){
-			message.addBeforeIndex(position + 1, 
+			message.addBeforeIndex(position, 
 					clipboard.getAtIndex(i));
 			
 			//CHECK ME OUT
