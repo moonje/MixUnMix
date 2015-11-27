@@ -279,43 +279,224 @@ public class MixUnMixTests {
 	
 	/*******************************************************************
 	 * Tests: processCommand(String command) in Mix.java with improper 
-	 * 		  commands
+	 * 		  commands and commands that don't exist 
 	 ******************************************************************/
-	@Test 
+	@Test (expected = IllegalArgumentException.class)
 	public void testProcessCommand2(){
 		
-		String message = "Unable to process command: incorrect format!";
-		
 		Mix m = new Mix();
-		
-		//Tests CASE 'B' inputs 
 		m.setInitialMessage("AB");
-		
-		assertEquals(m.processCommand("b 12 0"), message);
-		assertEquals(m.processCommand("b aa 0"), message);
-		assertEquals(m.processCommand("b"), message);
-		assertEquals(m.processCommand("b 12"), message);
-		assertEquals(m.processCommand("b b b"), message);
-		assertEquals(m.processCommand("b b b b"), message);
-		assertEquals(m.processCommand("b 1 0 b"), message);
-		assertEquals(m.processCommand("b 0 0 br st q "), message);
-		assertEquals(m.processCommand("b  3"), message);
-		assertEquals(m.processCommand("b   3"), message);
-		assertEquals(m.processCommand("b  0"), message); 
-		assertEquals(m.processCommand("b     0"), message);
-		assertEquals(m.processCommand("b   "), message);
-		assertEquals(m.processCommand("b          "), message);
-		
-		//Tests CASE 'R' inputs
-		assertEquals(m.processCommand("r"), message);
-		assertEquals(m.processCommand("r 3"), message);
-		assertEquals(m.processCommand("r -1"), message);
-
-		
-		//Tests INVALID COMMAND
-		message = "Command not found";
-		assertEquals(m.processCommand("pizza"), message);
-		assertEquals(m.processCommand("B 1 0"), message);
+		m.processCommand("w 20 2");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand3(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("b 12 0");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand4(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("b aa 0");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand5(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("b");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand6(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("b 12");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand7(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("b b b");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand8(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("b 1 0 b");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand10(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("b 0 0 br st q ");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand11(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("b  3");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand12(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("b   3");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand13(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("b  0");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand14(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("b     0");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand15(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("b   ");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand16(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("r");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand17(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("b          ");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand18(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("r 3");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand19(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("r -1");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommand20(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("pizza");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommand21(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("B 1 0");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommand22(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("x 0 5");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommand23(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("t");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommand24(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("q");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommand25(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("A");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommand26(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("B");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommand27(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("X");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommand28(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("P");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommand29(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("C");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommand30(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommand31(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("S");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommand32(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("R");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommand33(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("H");
 	}
 	
 	/*******************************************************************
@@ -541,14 +722,39 @@ public class MixUnMixTests {
 		m6.setInitialMessage("hello");
 		m6.processCommand("x 0 1");
 		m6.processCommand("p 3");
-		//m6.cut(0, 1);
-		//m6.paste(3);
 		m6.processCommand("s hello");
-		System.out.println(m6.getCommands());
 		
 		UnMix u6 = new UnMix();
 		assertEquals(u6.UnMixUsingFile("hello.txt", "llohe"), 
 				"The original message was:\nhello");
+		
+		Mix m7 = new Mix();
+		m7.setInitialMessage("1234567890!@#$%^&*()_+=-`");
+		m7.processCommand("r 0");
+		m7.processCommand("a 0");
+		m7.processCommand("s m7");
+		
+		UnMix u7 = new UnMix();
+		assertEquals(u7.UnMixUsingFile("m7.txt", 
+				"234567890!@#$%^&*()_+=-`0"),
+				"The original message was:\n1234567890!@#$%^&*()_+=-`");
+		
+		Mix m8 = new Mix();
+		m8.setInitialMessage("This message is going to be deleted "
+				+ "and made again");
+		m8.processCommand("x 0 49");
+		m8.processCommand("a 1");
+		m8.processCommand("c 0 0");
+		m8.processCommand("p 0");
+		m8.processCommand("p 0");
+		m8.processCommand("p 0");
+		m8.processCommand("x 0 3");
+		m8.processCommand("s deleted");
+		
+		UnMix u8 = new UnMix();
+		assertEquals(u8.UnMixUsingFile("deleted.txt", ""),
+				"The original message was:\nThis message is going "
+				+ "to be deleted and made again");
 	}
 	
 	/*******************************************************************
@@ -561,8 +767,12 @@ public class MixUnMixTests {
 		UnMix u = new UnMix();
 		assertEquals(u.UnMixUsingFile("test6.txt", "NO"), 
 				"WARNING! File not found!");
+		
 		assertEquals(u.UnMixUsingFile("test6", "NO"), 
 				"WARNING! Only able to open .txt files!");
+		
+		assertEquals(u.UnMixUsingFile("hello.txt", "NO"), 
+				"WARNING! Unable to load file!");
 	}
 	
 	/*******************************************************************

@@ -36,8 +36,8 @@ public class Mix implements IMix{
 			+ "a & \t\t appends the message with character &\n"
 			+ "h\t\t displays this message again\n";
 	
-	/** Generic Error Message **/
-	final String error = "Unable to process command: incorrect format!";
+//	/** Generic Error Message **/
+//	final String error = "Unable to process command: incorrect format!";
 	
 	/*******************************************************************
 	 * Default constructor for Mix
@@ -193,7 +193,7 @@ public class Mix implements IMix{
 			throw new IllegalArgumentException();
 		}
 		
-		if (position > clipboard.count() + 1 || position < 0){
+		if (position > message.count() + 1 || position < 0){
 			throw new IllegalArgumentException();
 		}
 		
@@ -252,11 +252,12 @@ public class Mix implements IMix{
 	 * 
 	 * @param command, the user's command
 	 * @return String WHAT DO IT DOOOOO
+	 * @throws IllegalArgumentException
 	 ******************************************************************/
 	@Override
-	public String processCommand(String command) {
-		
-		String returnString = "";
+	public String processCommand(String command) 
+			throws IllegalArgumentException, 
+			UnsupportedOperationException{
 		
 		try{
 			String[] com = command.split(" ");
@@ -267,7 +268,7 @@ public class Mix implements IMix{
 				if (com.length == 1)
 					return cmd;
 				else
-					returnString = error;
+					throw new IllegalArgumentException();
 			
 			//quit
 			case "Q":
@@ -279,7 +280,7 @@ public class Mix implements IMix{
 				
 				//user put in incorrectly formatted command
 				if (com[1].length() > 1){
-					returnString = error;
+					throw new IllegalArgumentException();
 					
 				} else {
 					try {
@@ -295,7 +296,7 @@ public class Mix implements IMix{
 								
 							//User put in too much
 							} else {
-								returnString = error;
+								throw new IllegalArgumentException();
 							}
 							
 						//Character input is not a string
@@ -306,14 +307,14 @@ public class Mix implements IMix{
 								
 							//User put in too much
 							} else {
-								returnString = error;
+								throw new IllegalArgumentException();
 							}
 						}
 						
 						insert(com[1], index);
 						
 					} catch (Exception e) {
-						returnString = error; 
+						throw new IllegalArgumentException(); 
 					}
 				}
 				break; 
@@ -323,7 +324,7 @@ public class Mix implements IMix{
 				
 				//user put in incorrectly formatted command
 				if (com.length != 2){
-					returnString = error;
+					throw new IllegalArgumentException();
 					
 				} else {
 					try {
@@ -331,7 +332,7 @@ public class Mix implements IMix{
 						remove(index);
 						
 					} catch (Exception e) {
-						returnString = error; 
+						throw new IllegalArgumentException(); 
 					}
 				}
 				break; 
@@ -346,11 +347,11 @@ public class Mix implements IMix{
 						switchPosition(pos1, pos2);
 						
 					} catch (Exception e) {
-						returnString = error; 
+						throw new IllegalArgumentException(); 
 					}
 					
 				} else {
-					returnString = error; 
+					throw new IllegalArgumentException(); 
 				}
 				break; 
 			
@@ -363,10 +364,10 @@ public class Mix implements IMix{
 								+ " " + message.toString() + "\n";
 						
 					} catch (Exception e) {
-						returnString = error;
+						throw new IllegalArgumentException();
 					}
 				} else {
-					returnString = error;
+					throw new IllegalArgumentException();
 				}
 				
 			//cut to the clipboard, starting at & to # (inclusive)
@@ -379,11 +380,11 @@ public class Mix implements IMix{
 						cut(pos1, pos2);
 						
 					} catch (Exception e){
-						returnString = error;
+						throw new IllegalArgumentException();
 					}
 					
 				} else {
-					returnString = error;
+					throw new IllegalArgumentException();
 				}
 				
 				break; 
@@ -396,10 +397,10 @@ public class Mix implements IMix{
 						paste(pos1);
 						
 					} catch (Exception e){
-						returnString = error;
+						throw new IllegalArgumentException();
 					}
 				} else {
-					returnString = error;
+					throw new IllegalArgumentException();
 				}
 				break; 
 				
@@ -412,7 +413,7 @@ public class Mix implements IMix{
 						copy(pos1, pos2);
 					} catch (Exception e){
 						
-						returnString = error;
+						throw new IllegalArgumentException();
 					}
 				}
 				break; 
@@ -422,28 +423,36 @@ public class Mix implements IMix{
 				
 				//user put in incorrectly formatted command
 				if (com.length != 2){
-					returnString = error;
+					throw new IllegalArgumentException();
 					
 				} else {
+					
+					if (com[1].length() > 1)
+						throw new IllegalArgumentException();
+					
 					try {
 						
 						allen(com[1]);
 						
 					} catch (Exception e) {
-						returnString = error; 
+						throw new IllegalArgumentException(); 
 					}
 				}
 				break; 
 				
 			//Command doesn't exist 
 			default:
-				returnString = "Command not found";
+				throw new UnsupportedOperationException();
 			}
+			
+		} catch (UnsupportedOperationException e)  {
+			throw new UnsupportedOperationException();
+			
 		} catch (Exception e) {
-			returnString = error;
+			throw new IllegalArgumentException();
 		}
 
-		return returnString;
+		return message.toNumbersString();
 	}
 
 	/*******************************************************************
@@ -504,9 +513,15 @@ public class Mix implements IMix{
 	}
 	
 	/*******************************************************************
-	 * Takes in user inputs 
+	 * Main method used to run the program
 	 ******************************************************************/
 	public static void main (String args[]){
+
+		String error1 = "Unable to process command: incorrect "
+				+ "format!\n";
+		
+		String error2 = "Command not found!\n";
+		
 		Mix mix = new Mix();
 		
 		Scanner scanner = new Scanner(System.in);
@@ -524,9 +539,16 @@ public class Mix implements IMix{
 		String input = "";
 		
 	    while ((input = scanner.nextLine()) != "Q") {
-	    	System.out.println(mix.processCommand(input));
+	    	try {
+	    		System.out.println(mix.processCommand(input));
+	    		
+	    	} catch (UnsupportedOperationException e){
+	    		System.out.println(error2 + mix.toNumbersString());
+	    		
+	    	} catch (Exception e) {
+	    		System.out.println(error1 + mix.toNumbersString());
+	    	}
 	      
-	    	System.out.println(mix.toNumbersString());
 	    	System.out.println("Command:");
 	    }
 	}
