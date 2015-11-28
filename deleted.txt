@@ -1,0 +1,58 @@
+b 1 0
+b 1 0
+b 1 0
+b 1 0
+r 0
+r 0
+r 0
+r 0
+b n 0
+b i 0
+b a 0
+b g 0
+b a 0
+b   0
+b e 0
+b d 0
+b a 0
+b m 0
+b   0
+b d 0
+b n 0
+b a 0
+b   0
+b d 0
+b e 0
+b t 0
+b e 0
+b l 0
+b e 0
+b d 0
+b   0
+b e 0
+b b 0
+b   0
+b o 0
+b t 0
+b   0
+b g 0
+b n 0
+b i 0
+b o 0
+b g 0
+b   0
+b s 0
+b i 0
+b   0
+b e 0
+b g 0
+b a 0
+b s 0
+b s 0
+b e 0
+b m 0
+b   0
+b s 0
+b i 0
+b h 0
+b T 0
