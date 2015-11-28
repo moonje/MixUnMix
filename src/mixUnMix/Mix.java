@@ -1,7 +1,6 @@
 package mixUnMix;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /***********************************************************************
@@ -229,21 +228,15 @@ public class Mix implements IMix{
 	/*******************************************************************
 	 * Adds a character to the end of the message
 	 * 
-	 * @param pos1 the starting position of the copy
-	 * @param pos2 the ending position of the copy
+	 * @param c the String character to add at the end
 	 ******************************************************************/
-	public void allen(String c) throws IllegalArgumentException{
-		
-		try{
+	public void allen(String c){
+
 			//adds the character at the end
 			message.addAtEnd(c);
 			//saves the command as remove from the current end
 			commands = "r" + " " + 
 					(message.count() - 1) + "\n" + commands;
-			
-		} catch(Exception e){
-			throw new IllegalArgumentException();
-		}
 		
 	}
 	
@@ -551,5 +544,7 @@ public class Mix implements IMix{
 	      
 	    	System.out.println("Command:");
 	    }
+	    
+	    scanner.close();
 	}
 }

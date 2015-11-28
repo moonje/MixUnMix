@@ -618,6 +618,112 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
+	 * Tests: addFirst(E data) in LinkList.java 
+	 ******************************************************************/
+	@Test
+	public void testAddFirst(){
+		
+		LinkList<String> link = new LinkList<String>();
+		link.addFirst("A");
+		assertEquals(link.toString(), "A");
+		
+		link.addFirst("B");
+		assertEquals(link.toString(), "BA");
+		
+		link.addFirst("C");
+		assertEquals(link.toString(), "CBA");
+		
+		link.addFirst("D");
+		assertEquals(link.toString(), "DCBA");
+	}
+	
+	/*******************************************************************
+	 * Tests: count() in LinkList.java 
+	 ******************************************************************/
+	@Test
+	public void testCount(){
+		
+		LinkList<String> link = new LinkList<String>();
+		int test = link.count();
+		assertEquals(test, 0);
+		
+		link.addFirst("A");
+		test = link.count();
+		assertEquals(test, 1);
+		
+		link.addFirst("A");
+		test = link.count();
+		assertEquals(test, 2);
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: addAtEnd(E data) in LinkList.java 
+	 ******************************************************************/
+	@Test
+	public void testAddAtEnd(){
+		
+		LinkList<String> link = new LinkList<String>();
+		link.addAtEnd("A");
+		assertEquals(link.toString(), "A");
+		
+		link.addAtEnd("B");
+		assertEquals(link.toString(), "AB");
+		
+		link.addAtEnd("C");
+		assertEquals(link.toString(), "ABC");
+		
+		link.addAtEnd("D");
+		assertEquals(link.toString(), "ABCD");
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: delete(E data) in LinkList.java 
+	 ******************************************************************/
+	@Test
+	public void testDeleteNode(){
+		
+		LinkList<String> link = new LinkList<String>();
+		assertEquals(link.delete("A"), false);
+		
+		link.addAtEnd("A");
+		assertEquals(link.delete("A"), true);
+		int test = link.count();
+		assertEquals(test, 0);
+		
+		link.addAtEnd("A");
+		link.addAtEnd("A");
+		link.addAtEnd("A");
+		link.addAtEnd("A");
+		link.addAtEnd("B");
+		assertEquals(link.delete("A"), true);
+		test = link.count();
+		assertEquals(test, 4);
+		assertEquals(link.toString(), "AAAB");
+		
+		assertEquals(link.delete("B"), true);
+		test = link.count();
+		assertEquals(test, 3);
+		assertEquals(link.toString(), "AAA");
+		
+		assertEquals(link.delete("B"), false);
+	}
+	
+	/*******************************************************************
+	 * Tests: deleteAll() in LinkList.java 
+	 ******************************************************************/
+	@Test
+	public void testDeleteAllNodes(){
+		
+		LinkList<String> link = new LinkList<String>();
+		link.addAtEnd("A");
+		link.deleteAll();
+		assertEquals(link.count(), 0);
+		
+	}
+	
+	/*******************************************************************
 	 * Tests: SetInitialMessage(String msg) in Mix
 	 ******************************************************************/
 	@Test
@@ -773,6 +879,21 @@ public class MixUnMixTests {
 		
 		assertEquals(u.UnMixUsingFile("hello.txt", "NO"), 
 				"WARNING! Unable to load file!");
+	}
+	
+	/*******************************************************************
+	 * Tests: allen(String c) in Mix.java which adds a character to
+	 * 			the end of the message
+	 ******************************************************************/
+	@Test
+	public void testAllen(){
+		
+		Mix m = new Mix();
+		m.setInitialMessage("Hello");
+		m.allen("!");
+		assertEquals(m.messageToString(), "Hello!");
+		assertEquals(m.getCommands(), "r 5\n");
+		
 	}
 	
 	/*******************************************************************

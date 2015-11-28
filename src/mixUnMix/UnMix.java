@@ -70,5 +70,7 @@ public class UnMix implements IUnMix{
 		String filename = scanner.nextLine();
 		
 		System.out.println(unmix.UnMixUsingFile(filename, userMessage));
+		
+		scanner.close();
 	}
 }
