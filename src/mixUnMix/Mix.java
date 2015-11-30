@@ -35,9 +35,6 @@ public class Mix implements IMix{
 			+ "a & \t\t appends the message with character &\n"
 			+ "h\t\t displays this message again\n";
 	
-//	/** Generic Error Message **/
-//	final String error = "Unable to process command: incorrect format!";
-	
 	/*******************************************************************
 	 * Default constructor for Mix
 	 ******************************************************************/
@@ -279,8 +276,11 @@ public class Mix implements IMix{
 			
 			//quit
 			case "Q":
-				quit();
-				break; 
+				if (com.length == 1){
+					quit();
+				} else {
+					throw new IllegalArgumentException();
+				}
 			
 			//insert char c before position #
 			case "b":
