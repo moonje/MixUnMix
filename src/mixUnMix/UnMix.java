@@ -31,10 +31,10 @@ public class UnMix implements IUnMix{
 	public String UnMixUsingFile(String filename, String userMessage) 
 			throws IllegalArgumentException{
 		
-		//UnMix um = new UnMix();
-		Mix mix = new Mix();
+		UnMix um = new UnMix();
+		//Mix mix = new Mix();
 		
-		mix.setInitialMessage(userMessage);
+		um.setInitialMessage(userMessage);
 		
 		if (filename.substring(filename.lastIndexOf(".") + 1).equals
 				("txt")){
@@ -44,13 +44,13 @@ public class UnMix implements IUnMix{
 				
 				while (fileReader.hasNextLine()){
 					String text = fileReader.nextLine();
-					mix.processCommand(text);
+					um.processCommand(text);
 				}
 				
 				fileReader.close();
 				
 				return "The original message was:\n" + 
-					mix.messageToString();
+					um.messageToString();
 				
 			} catch (FileNotFoundException e) {
 				return "WARNING! File not found!";

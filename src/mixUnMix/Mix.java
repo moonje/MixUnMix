@@ -306,7 +306,7 @@ public class Mix implements IMix{
 								throw new IllegalArgumentException();
 							}
 							
-						//Character input is not a string
+						//Character input is not a space
 						} else {
 							
 							if (com.length == 3){
@@ -438,6 +438,18 @@ public class Mix implements IMix{
 						throw new IllegalArgumentException();
 					
 					try {
+						//Character input is a space
+						if (command.charAt(1) == ' ' &&
+								command.charAt(2) == ' '){
+							
+							if (com.length == 3){
+								com[1] = " ";
+								
+							//User put in too much
+							} else {
+								throw new IllegalArgumentException();
+							}
+						}
 						
 						allen(com[1]);
 						
