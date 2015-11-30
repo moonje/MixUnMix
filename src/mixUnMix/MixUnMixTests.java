@@ -174,7 +174,7 @@ public class MixUnMixTests {
     
     /*******************************************************************
 	 * Tests: switchPosition(int pos1, int pos2) in Mix.java with
-	 * 			incorrect inputs
+	 * 			too large a position
 	 ******************************************************************/
     @Test (expected = IllegalArgumentException.class)
     public void testSwitchPosition2(){
@@ -204,7 +204,7 @@ public class MixUnMixTests {
 	
 	/*******************************************************************
 	 * Tests: insert(String c, int position) in Mix.java with incorrect
-	 * 	      inputs
+	 * 	      inputs (trying to insert more than a character)
 	 ******************************************************************/
 	@Test (expected = IllegalArgumentException.class)
 	public void testInsertErrors(){
@@ -537,7 +537,8 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
-	 * Tests: copy(int pos1, int pos2) in Mix.java with input errors
+	 * Tests: copy(int pos1, int pos2) in Mix.java with negative
+	 * 			position
 	 ******************************************************************/
 	@Test (expected=IllegalArgumentException.class)
 	public void testCopy2(){
@@ -550,7 +551,8 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
-	 * Tests: copy(int pos1, int pos2) in Mix.java with input errors
+	 * Tests: copy(int pos1, int pos2) in Mix.java with negative
+	 * 			position
 	 ******************************************************************/
 	@Test (expected=IllegalArgumentException.class)
 	public void testCopy3(){
@@ -563,7 +565,8 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
-	 * Tests: copy(int pos1, int pos2) in Mix.java with input errors
+	 * Tests: copy(int pos1, int pos2) in Mix.java with too large
+	 * 			position
 	 ******************************************************************/
 	@Test (expected=IllegalArgumentException.class)
 	public void testCopy4(){
@@ -576,7 +579,8 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
-	 * Tests: copy(int pos1, int pos2) in Mix.java with input errors
+	 * Tests: copy(int pos1, int pos2) in Mix.java with too large
+	 * 			position
 	 ******************************************************************/
 	@Test (expected=IllegalArgumentException.class)
 	public void testCopy5(){
@@ -589,7 +593,8 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
-	 * Tests: copy(int pos1, int pos2) in Mix.java with input errors
+	 * Tests: copy(int pos1, int pos2) in Mix.java with larger first
+	 * 			input
 	 ******************************************************************/
 	@Test (expected=IllegalArgumentException.class)
 	public void testCopy6(){
@@ -623,7 +628,8 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
-	 * Tests: cut(int pos1, int pos2) in Mix.java with input errors
+	 * Tests: cut(int pos1, int pos2) in Mix.java with negative 
+	 * 			position
 	 ******************************************************************/
 	@Test (expected=IllegalArgumentException.class)
 	public void testCut2(){
@@ -636,7 +642,8 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
-	 * Tests: cut(int pos1, int pos2) in Mix.java with input errors
+	 * Tests: cut(int pos1, int pos2) in Mix.java with too large
+	 * 			position
 	 ******************************************************************/
 	@Test (expected=IllegalArgumentException.class)
 	public void testCut3(){
@@ -649,7 +656,8 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
-	 * Tests: cut(int pos1, int pos2) in Mix.java with input errors
+	 * Tests: cut(int pos1, int pos2) in Mix.java with negative
+	 * 			position
 	 ******************************************************************/
 	@Test (expected=IllegalArgumentException.class)
 	public void testCut4(){
@@ -662,7 +670,8 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
-	 * Tests: cut(int pos1, int pos2) in Mix.java with input errors
+	 * Tests: cut(int pos1, int pos2) in Mix.java with too large
+	 * 			position
 	 ******************************************************************/
 	@Test (expected=IllegalArgumentException.class)
 	public void testCut5(){
@@ -696,7 +705,8 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
-	 * Tests: paste(int pos1, int pos2) in Mix.java with input errors
+	 * Tests: paste(int pos1, int pos2) in Mix.java with nothing in
+	 * 			the clipboard
 	 ******************************************************************/
 	@Test (expected=IllegalArgumentException.class)
 	public void testPaste2(){
@@ -709,7 +719,8 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
-	 * Tests: paste(int pos1, int pos2) in Mix.java with input errors
+	 * Tests: paste(int pos1, int pos2) in Mix.java with too large
+	 * 			position
 	 ******************************************************************/
 	@Test (expected=IllegalArgumentException.class)
 	public void testPaste3(){
@@ -723,7 +734,8 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
-	 * Tests: paste(int pos1, int pos2) in Mix.java with input errors
+	 * Tests: paste(int pos1, int pos2) in Mix.java with negative
+	 * 			position
 	 ******************************************************************/
 	@Test (expected=IllegalArgumentException.class)
 	public void testPaste4(){
