@@ -5,7 +5,7 @@ package mixUnMix;
  * @author Jennifer Moon
  * @author Molly Alger
  * 
- * @version 11/13/2015
+ * @version 12/2/2015
  **********************************************************************/
 public class LinkList<E> {
 	

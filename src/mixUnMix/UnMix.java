@@ -8,7 +8,7 @@ import java.util.Scanner;
  * @author Jennifer Moon
  * @author Molly Alger
  * 
- * @version 11/15/2015
+ * @version 12/2/2015
  **********************************************************************/
 public class UnMix implements IUnMix{
 		

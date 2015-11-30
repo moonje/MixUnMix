@@ -8,7 +8,7 @@ JUnit Tests used to test Node, Mix, LinkList, and UnMix
 
 @author Jennifer Moon
 @author Molly Alger
-@version 11/15/2015
+@version 12/2/2015
 ***********************************************************************/
 
 public class MixUnMixTests {
@@ -515,6 +515,225 @@ public class MixUnMixTests {
 		m.remove(1);
 		assertEquals(m.messageToString(), "IZA pizza");
 		assertEquals(m.getCommands(), "b Z 1\nb P 0\n");
+	}
+	
+	/*******************************************************************
+	 * Tests: copy(int pos1, int pos2) in Mix.java
+	 ******************************************************************/
+	@Test
+	public void testCopy(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.copy(0, 1);
+		assertEquals(m.clipboardToString(), "He");
+		
+		Mix m2 = new Mix();
+		m2.setInitialMessage("PIZZA IS GOOD");
+		m2.copy(0, 4);
+		assertEquals(m2.clipboardToString(), "PIZZA");
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: copy(int pos1, int pos2) in Mix.java with input errors
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testCopy2(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.copy(-1, 1);
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: copy(int pos1, int pos2) in Mix.java with input errors
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testCopy3(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.copy(1, -1);
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: copy(int pos1, int pos2) in Mix.java with input errors
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testCopy4(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.copy(8, 5);
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: copy(int pos1, int pos2) in Mix.java with input errors
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testCopy5(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.copy(1, 8);
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: copy(int pos1, int pos2) in Mix.java with input errors
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testCopy6(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.copy(4, 1);
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: cut(int pos1, int pos2) in Mix.java
+	 ******************************************************************/
+	@Test
+	public void testCut(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.cut(0, 1);
+		assertEquals(m.clipboardToString(), "He");
+		assertEquals(m.messageToString(), "llo");
+		
+		Mix m2 = new Mix();
+		m2.setInitialMessage("PIZZA IS GOOD");
+		m2.cut(0, 4);
+		assertEquals(m2.clipboardToString(), "PIZZA");
+		assertEquals(m2.messageToString(), " IS GOOD");
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: cut(int pos1, int pos2) in Mix.java with input errors
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testCut2(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.cut(-1, 1);
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: cut(int pos1, int pos2) in Mix.java with input errors
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testCut3(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.cut(7, 1);
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: cut(int pos1, int pos2) in Mix.java with input errors
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testCut4(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.cut(1, -1);
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: cut(int pos1, int pos2) in Mix.java with input errors
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testCut5(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.cut(1, 8);
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: paste(int pos1) in Mix.java
+	 ******************************************************************/
+	@Test
+	public void testPaste(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.cut(0, 1);
+		assertEquals(m.clipboardToString(), "He");
+		m.paste(3);
+		assertEquals(m.messageToString(), "lloHe");
+		
+		m.cut(0, 1);
+		assertEquals(m.clipboardToString(), "ll");
+		m.paste(2);
+		assertEquals(m.messageToString(), "oHlle");
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: paste(int pos1, int pos2) in Mix.java with input errors
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testPaste2(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.paste(0);
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: paste(int pos1, int pos2) in Mix.java with input errors
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testPaste3(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.copy(0, 4);
+		m.paste(6);
+		
+	}
+	
+	/*******************************************************************
+	 * Tests: paste(int pos1, int pos2) in Mix.java with input errors
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testPaste4(){
+		
+		Mix m = new Mix();
+		
+		m.setInitialMessage("Hello");
+		m.copy(0, 4);
+		m.paste(-1);
+		
 	}
 	
 	/*******************************************************************

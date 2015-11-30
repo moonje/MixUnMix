@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author Jennifer Moon
  * @author Molly Alger
  * 
- * @version 11/15/2015
+ * @version 12/2/2015
  **********************************************************************/
 public class Mix implements IMix{
 
@@ -213,7 +213,13 @@ public class Mix implements IMix{
 	 * @param pos1 the starting position of the copy
 	 * @param pos2 the ending position of the copy
 	 ******************************************************************/
-	public void copy(int pos1, int pos2){
+	public void copy(int pos1, int pos2)
+						throws IllegalArgumentException{
+		
+		if (pos1 < 0 || pos2 < 0 || pos1 > message.count() ||
+				pos2 > message.count() || pos1 > pos2){
+			throw new IllegalArgumentException();
+		}
 		
 		clipboard.deleteAll();
 		clipboard.addFirst(message.getAtIndex(pos1));
