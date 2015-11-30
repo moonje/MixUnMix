@@ -170,6 +170,12 @@ public class MixUnMixTests {
     	assertEquals(m3.messageToString(), "oellH");
     	assertEquals(m3.getCommands(), 
     			"w 4 0\nw 3 2\n");
+    	
+    	Mix m4 = new Mix();
+    	m4.setInitialMessage("pizza");
+    	
+    	m4.switchPosition(3, 1);
+    	assertEquals(m4.messageToString(), "pzzia");
     }
     
     /*******************************************************************
@@ -200,6 +206,18 @@ public class MixUnMixTests {
 		m.insert("B", 1);
 		assertEquals(m.messageToString(), "AB");
 		assertEquals(m.getCommands(), "r 1\nr 0\n");
+		
+		Mix m2 = new Mix();
+		m2.setInitialMessage("HELLO");
+		m2.insert("m", 3);
+		assertEquals(m2.messageToString(), "HELmLO");
+		assertEquals(m2.getCommands(), "r 3\n");
+		
+		Mix m3 = new Mix();
+		m3.setInitialMessage("HELLO");
+		m3.insert("m", 5);
+		assertEquals(m3.messageToString(), "HELLOm");
+		assertEquals(m3.getCommands(), "r 5\n");
 	}
 	
 	/*******************************************************************
@@ -515,6 +533,14 @@ public class MixUnMixTests {
 		m.remove(1);
 		assertEquals(m.messageToString(), "IZA pizza");
 		assertEquals(m.getCommands(), "b Z 1\nb P 0\n");
+		
+		m.remove(5);
+		assertEquals(m.messageToString(), "IZA pzza");
+		assertEquals(m.getCommands(), "b i 5\nb Z 1\nb P 0\n");
+		
+		m.remove(7);
+		assertEquals(m.messageToString(), "IZA pzz");
+		assertEquals(m.getCommands(), "b a 7\nb i 5\nb Z 1\nb P 0\n");
 	}
 	
 	/*******************************************************************
@@ -625,6 +651,12 @@ public class MixUnMixTests {
 		m2.cut(0, 4);
 		assertEquals(m2.clipboardToString(), "PIZZA");
 		assertEquals(m2.messageToString(), " IS GOOD");
+		
+		Mix m3 = new Mix();
+		m3.setInitialMessage("HIHIHI");
+		m3.cut(0, 0);
+		assertEquals(m3.clipboardToString(), "H");
+		assertEquals(m3.messageToString(), "IHIHI");
 		
 	}
 	
