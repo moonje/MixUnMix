@@ -429,7 +429,15 @@ public class Mix implements IMix{
 			case "a":
 				
 				//user put in incorrectly formatted command
-				if (com.length != 2){
+				if (com.length == 1){
+					if (command.equals("a  ")){
+						allen(" ");
+						
+					} else {
+						allen(com[1]);
+					}
+				
+				} else if (com.length != 2){
 					throw new IllegalArgumentException();
 					
 				} else {
@@ -438,20 +446,7 @@ public class Mix implements IMix{
 						throw new IllegalArgumentException();
 					
 					try {
-						//Character input is a space
-						if (command.charAt(1) == ' ' &&
-								command.charAt(2) == ' '){
-							
-							if (com.length == 3){
-								com[1] = " ";
-								
-							//User put in too much
-							} else {
-								throw new IllegalArgumentException();
-							}
-						}
 						
-						allen(com[1]);
 						
 					} catch (Exception e) {
 						throw new IllegalArgumentException(); 

@@ -366,9 +366,12 @@ public class LinkList<E> {
 			} else if (i >= 10 && i < 100) {
 				numbers += i + " ";
 				str += temp.getData() + "  ";
-			} else {
-				numbers += i + "  ";
+			} else if (i >= 100 || i < 1000){
+				numbers += i + " ";
 				str += temp.getData() + "   ";
+			} else {
+				numbers += i + " ";
+				str += temp.getData() + "    ";
 			}
 			
 			temp = temp.getNext();
