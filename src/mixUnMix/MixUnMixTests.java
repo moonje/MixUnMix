@@ -293,6 +293,17 @@ public class MixUnMixTests {
 		assertEquals(m.messageToString(), "Jennifer is looc");
 		m.switchPosition(14, 15);
 		assertEquals(m.messageToString(), "Jennifer is loco");
+		
+		m = new Mix();
+		m.setInitialMessage("Hello"); 
+		m.processCommand("a  ");
+		assertEquals(m.messageToString(), "Hello ");
+		
+		m = new Mix();
+		m.setInitialMessage("Hello");
+		m.processCommand("a M");
+		assertEquals(m.messageToString(), "HelloM");
+		
 	}
 	
 	/*******************************************************************
@@ -1205,6 +1216,10 @@ public class MixUnMixTests {
 		m.allen("!");
 		assertEquals(m.messageToString(), "Hello!");
 		assertEquals(m.getCommands(), "r 5\n");
+		
+		m.allen(" ");
+		assertEquals(m.messageToString(), "Hello! ");
+		assertEquals(m.getCommands(), "r 6\nr 5\n");
 		
 	}
 	
