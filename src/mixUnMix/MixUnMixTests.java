@@ -634,6 +634,19 @@ public class MixUnMixTests {
 	}
 	
 	/*******************************************************************
+	 * Tests: copy(int pos1, int pos2) in Mix.java with trying to copy
+	 * 			an empty message
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testCopy7(){
+		Mix m = new Mix();
+		
+		m.setInitialMessage("pizza");
+		m.cut(0, 4);
+		m.copy(0, 4);
+	}
+	
+	/*******************************************************************
 	 * Tests: cut(int pos1, int pos2) in Mix.java
 	 ******************************************************************/
 	@Test
@@ -726,6 +739,19 @@ public class MixUnMixTests {
 		
 		m.setInitialMessage("We can't do this!");
 		m.cut(3, 1);
+	}
+	
+	/*******************************************************************
+	 * Tests: cut(int pos1, int pos2) in Mix.java with trying to cut
+	 * 			an empty message
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testCut7(){
+		Mix m = new Mix();
+		
+		m.setInitialMessage("pizza");
+		m.cut(0, 4);
+		m.cut(0, 4);
 	}
 	
 	/*******************************************************************

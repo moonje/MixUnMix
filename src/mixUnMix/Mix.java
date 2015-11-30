@@ -225,6 +225,10 @@ public class Mix implements IMix{
 			throw new IllegalArgumentException();
 		}
 		
+		if(message.count() == 0){
+			throw new IllegalArgumentException();
+		}
+		
 		clipboard.deleteAll();
 		clipboard.addFirst(message.getAtIndex(pos1));
 		
