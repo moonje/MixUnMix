@@ -773,6 +773,16 @@ public class MixUnMixTests {
 		m.paste(2);
 		assertEquals(m.messageToString(), "oHlle");
 		
+		m.copy(0, 1);
+		assertEquals(m.clipboardToString(), "oH");
+		m.paste(0);
+		assertEquals(m.messageToString(), "oHoHlle");
+		
+		m.copy(0, 0);
+		assertEquals(m.clipboardToString(), "o");
+		m.paste(7);
+		assertEquals(m.messageToString(), "oHoHlleo");
+		
 	}
 	
 	/*******************************************************************
@@ -1217,5 +1227,378 @@ public class MixUnMixTests {
         	assertEquals(original, "The original message was:\n"
         			+ "This is a secret message");
     }
+    
+    /*******************************************************************
+	 * Tests: switchPosition(int pos1, int pos2) in UnMix.java
+	 ******************************************************************/
+    @Test
+    public void testSwitchPositionUM(){
+    	
+    	UnMix m = new UnMix();
+    	
+    	m.setInitialMessage("pizza");
+    	m.switchPosition(1, 3);
+    	assertEquals(m.messageToString(), "pzzia");
+    	
+    	UnMix m2 = new UnMix();
+    	m2.setInitialMessage("This is a test.");
+    	m2.switchPosition(0, 4);
+    	assertEquals(m2.messageToString(), 
+    			" hisTis a test.");
+    	
+    	UnMix m3 = new UnMix();
+    	m3.setInitialMessage("Hello");
+    	m3.switchPosition(2, 3);
+    	assertEquals(m3.messageToString(), "Hello");
+    	m3.switchPosition(0, 4);
+    	assertEquals(m3.messageToString(), "oellH");
+    	
+    	UnMix m4 = new UnMix();
+    	m4.setInitialMessage("pizza");
+    	
+    	m4.switchPosition(3, 1);
+    	assertEquals(m4.messageToString(), "pzzia");
+    }
+    
+    /*******************************************************************
+	 * Tests: switchPosition(int pos1, int pos2) in UnMix.java with
+	 * 			too large a position
+	 ******************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testSwitchPositionUM2(){
+    	
+    	UnMix m = new UnMix();
+    	m.setInitialMessage("pizza");
+    	
+    	m.switchPosition(1, 100);
+    }
+    
+	/*******************************************************************
+	 * Tests: insert(String c, int position) in UnMix.java
+	 ******************************************************************/
+	@Test
+	public void testInsertUM(){
+		
+		UnMix m = new UnMix(); 
+		
+		m.insert("A", 0);
+		assertEquals(m.messageToString(), "A");
+		
+		m.insert("B", 1);
+		assertEquals(m.messageToString(), "AB");
+		
+		UnMix m2 = new UnMix();
+		m2.setInitialMessage("HELLO");
+		m2.insert("m", 3);
+		assertEquals(m2.messageToString(), "HELmLO");
+		
+		UnMix m3 = new UnMix();
+		m3.setInitialMessage("HELLO");
+		m3.insert("m", 5);
+		assertEquals(m3.messageToString(), "HELLOm");
+	}
+	
+	/*******************************************************************
+	 * Tests: insert(String c, int position) in UnMix.java with incorrect
+	 * 	      inputs (trying to insert more than a character)
+	 ******************************************************************/
+	@Test (expected = IllegalArgumentException.class)
+	public void testInsertErrorsUM(){
+		
+		UnMix m = new UnMix();
+		
+		m.insert("QUACK", 12);
+	}
+	
+	/*******************************************************************
+	 * Tests: processCommand(String command) in UnMix.java
+	 ******************************************************************/
+	@Test
+	public void testProcessCommandUM(){
+
+		UnMix m = new UnMix();
+
+		//Tests correct CASE 'B' inputs 
+		m.setInitialMessage("13");
+		
+		m.processCommand("b 0 0");
+		assertEquals(m.messageToString(), "013");
+		
+		m.processCommand("b 2 2");
+		assertEquals(m.messageToString(), "0123");
+		
+		m.processCommand("b A 3");
+		assertEquals(m.messageToString(), "012A3");
+		
+		m.processCommand("b   3");
+		assertEquals(m.messageToString(), "012 A3");
+		
+		//Tests correct CASE 'R' inputs
+		m = new UnMix();
+		m.setInitialMessage("pizza");
+		
+		m.processCommand("r 1");
+		assertEquals(m.messageToString(), "pzza");
+		
+		m.processCommand("r 0");
+		assertEquals(m.messageToString(), "zza");
+		
+		m.processCommand("r 2");
+		assertEquals(m.messageToString(), "zz");
+		
+		m.processCommand("r 0");
+		assertEquals(m.messageToString(), "z");
+		
+		m.processCommand("r 0");
+		assertEquals(m.messageToString(), "");
+		
+		//Tests correct CASE 'W' inputs
+		m = new UnMix();
+		m.setInitialMessage("switch twitch");
+		m.switchPosition(0, 7);
+		assertEquals(m.messageToString(), "twitch switch");
+		
+		m = new UnMix();
+		m.setInitialMessage("Jennifer is cool");
+		m.switchPosition(12, 15);
+		assertEquals(m.messageToString(), "Jennifer is looc");
+		m.switchPosition(14, 15);
+		assertEquals(m.messageToString(), "Jennifer is loco");
+	}
+	
+	/*******************************************************************
+	 * Tests: processCommand(String command) in UnMix.java with improper 
+	 * 		  commands and commands that don't exist 
+	 ******************************************************************/
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM2(){
+		
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("w 20 2");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM3(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("b 12 0");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM4(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("b aa 0");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM5(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("b");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM6(){
+		Mix m = new Mix();
+		m.setInitialMessage("AB");
+		m.processCommand("b 12");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM7(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("b b b");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM8(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("b 1 0 b");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM10(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("b 0 0 br st q ");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM11(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("b  3");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM12(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("b   3");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM13(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("b  0");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM14(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("b     0");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM15(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("b   ");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM16(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("r");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM17(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("b          ");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM18(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("r 3");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testProcessCommandUM19(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("r -1");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommandUM20(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("pizza");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommandUM21(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("B 1 0");
+	}
+	
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommandUM23(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("t");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommandUM24(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("q");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommandUM25(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("A");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommandUM26(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("B");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommandUM27(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("X");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommandUM28(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("P");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommandUM29(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("C");
+	}
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommandUM30(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("");
+	}
+	
+	
+	@Test (expected = UnsupportedOperationException.class)
+	public void testProcessCommandUM32(){
+		UnMix m = new UnMix();
+		m.setInitialMessage("AB");
+		m.processCommand("R");
+	}
+	
+	/*******************************************************************
+	 * Tests: remove(int position) in UnMix.java
+	 ******************************************************************/
+	@Test
+	public void testRemoveUM(){
+		
+		UnMix m = new UnMix();
+		m.setInitialMessage("PIZZA pizza");
+		
+		m.remove(0);
+		assertEquals(m.messageToString(), "IZZA pizza");
+		
+		m.remove(1);
+		assertEquals(m.messageToString(), "IZA pizza");
+		
+		m.remove(5);
+		assertEquals(m.messageToString(), "IZA pzza");
+		
+		m.remove(7);
+		assertEquals(m.messageToString(), "IZA pzz");
+	}
+	
+	/*******************************************************************
+	 * Tests: quit(int position) in Mix.java
+	 ******************************************************************/
+	@Test(expected=IllegalArgumentException.class)
+	public void testQuit(){
+		
+		Mix m = new Mix();
+		m.processCommand("Q ANYTHING");
+	}
 
 }
