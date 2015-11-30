@@ -446,7 +446,7 @@ public class Mix implements IMix{
 						throw new IllegalArgumentException();
 					
 					try {
-						
+						allen(com[1]);
 						
 					} catch (Exception e) {
 						throw new IllegalArgumentException(); 
