@@ -157,7 +157,7 @@ public class Mix implements IMix{
 	public void cut(int pos1, int pos2) throws IllegalArgumentException{
 		
 		if (pos1 < 0 || pos2 < 0 || pos1 > message.count() ||
-				pos2 > message.count()){
+				pos2 > message.count() || pos1 > pos2){
 			throw new IllegalArgumentException();
 		}
 		
