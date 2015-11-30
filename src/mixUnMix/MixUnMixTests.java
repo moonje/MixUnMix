@@ -528,12 +528,13 @@ public class MixUnMixTests {
 		m.setInitialMessage("Hello");
 		m.copy(0, 1);
 		assertEquals(m.clipboardToString(), "He");
+		assertEquals(m.messageToString(), "Hello");
 		
 		Mix m2 = new Mix();
 		m2.setInitialMessage("PIZZA IS GOOD");
 		m2.copy(0, 4);
 		assertEquals(m2.clipboardToString(), "PIZZA");
-		
+		assertEquals(m2.messageToString(), "PIZZA IS GOOD");
 	}
 	
 	/*******************************************************************
@@ -681,6 +682,18 @@ public class MixUnMixTests {
 		m.setInitialMessage("Hello");
 		m.cut(1, 8);
 		
+	}
+	
+	/*******************************************************************
+	 * Tests: cut(int pos1, int pos2) in Mix.java with first position
+	 *        larger than the second 
+	 ******************************************************************/
+	@Test (expected=IllegalArgumentException.class)
+	public void testCut6(){
+		Mix m = new Mix();
+		
+		m.setInitialMessage("We can't do this!");
+		m.cut(3, 1);
 	}
 	
 	/*******************************************************************
