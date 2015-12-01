@@ -26,22 +26,26 @@ public class UnMix implements IUnMix{
 	 * @param filename, the name of the file
 	 * @param userMessage, the user's message to unmix 
 	 * @return the decoded message
+	 * @throws IllegalArgumentException if a command is in the incorrect
+	 * 				format or the command does not exist - basically, 
+	 * 				Ferguson corrupted your file. 
 	 ******************************************************************/
 	@Override
 	public String UnMixUsingFile(String filename, String userMessage) 
 			throws IllegalArgumentException{
 		
 		UnMix um = new UnMix();
-		//Mix mix = new Mix();
 		
 		um.setInitialMessage(userMessage);
 		
+		//Checks to make sure the file is a text file
 		if (filename.substring(filename.lastIndexOf(".") + 1).equals
 				("txt")){
 		
 			try {
 				Scanner fileReader = new Scanner (new File(filename));
 				
+				//Attempts to read all of the commands
 				while (fileReader.hasNextLine()){
 					String text = fileReader.nextLine();
 					um.processCommand(text);
@@ -59,6 +63,7 @@ public class UnMix implements IUnMix{
 				return "WARNING! Unable to load file!";
 			}
 		
+		//File is not a text file
 		} else {
 			return "WARNING! Only able to open .txt files!";
 		}
@@ -83,6 +88,8 @@ public class UnMix implements IUnMix{
 	 * 
 	 * @param c the character to be inserted
 	 * @param position the position to insert the given character
+	 * @throws IllegalArgumentException if command is in incorrect
+	 * 				format. 
 	 ******************************************************************/
 	public void insert(String c, int position){
 		
@@ -98,13 +105,15 @@ public class UnMix implements IUnMix{
 	 * Removes the character at the given position
 	 * 
 	 * @param position the location of the character to be removed
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException if the command is in the
+	 * 				incorrect format. 
 	 ******************************************************************/
 	public void remove(int position) throws IllegalArgumentException{
 		
-		String data = message.removeAtIndex(position);
+		String data = message.getAtIndex(position);
 		
 		if (data != null){
+			message.removeAtIndex(position);
 			
 		} else {
 			throw new IllegalArgumentException();
@@ -117,14 +126,14 @@ public class UnMix implements IUnMix{
 	 * 
 	 * @param pos1 the location of one of the characters to be switched
 	 * @param pos2 the location of the other character to be switched
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException if the command is in the
+	 * 				incorrect format
 	 ******************************************************************/
 	public void switchPosition(int pos1, int pos2) 
 			throws IllegalArgumentException{
 		
 		try {
 			message.switchNodes(pos1, pos2);
-		
 			
 		} catch (Exception e) {
 			throw new IllegalArgumentException();
@@ -135,10 +144,9 @@ public class UnMix implements IUnMix{
 	 * Processes the command
 	 * 
 	 * @param command, the command
-	 * @return String WHAT DO IT DOOOOO
 	 * @throws IllegalArgumentException
 	 ******************************************************************/
-	public String processCommand(String command) 
+	public void processCommand(String command) 
 			throws IllegalArgumentException, 
 			UnsupportedOperationException{
 		
@@ -239,8 +247,6 @@ public class UnMix implements IUnMix{
 		} catch (Exception e) {
 			throw new IllegalArgumentException();
 		}
-
-		return message.toNumbersString();
 	}
 	
 	/*******************************************************************

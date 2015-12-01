@@ -9,7 +9,7 @@ package mixUnMix;
  **********************************************************************/
 public class Node<E> {
 
-	/** The data in the Node **/
+	/** The Data in the Node **/
 	public E data;
 
 	/** Next Node in the LinkList **/

@@ -62,14 +62,15 @@ public class Mix implements IMix{
 	/*******************************************************************
 	 * Inserts the character c at the given position
 	 * 
-	 * @param c the character to be inserted
-	 * @param position the position to insert the given character
+	 * @param c, the character to be inserted
+	 * @param position, the position to insert the given character
+	 * @throws IllegalArgumentException if error in user input
 	 ******************************************************************/
-	public void insert(String c, int position){
+	public void insert(String c, int position) 
+			throws IllegalArgumentException{
 		
 		try {
 			message.addBeforeIndex(position, c);
-			
 			commands = "r" + " " + position + "\n" + commands;
 
 		} catch (IllegalArgumentException e){
@@ -81,14 +82,15 @@ public class Mix implements IMix{
 	 * Removes the character at the given position
 	 * 
 	 * @param position the location of the character to be removed
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException if error in user input
 	 ******************************************************************/
 	public void remove(int position) throws IllegalArgumentException{
 		
 		String data = message.removeAtIndex(position);
 		
 		if (data != null){
-			commands = "b" + " " + data + " " + position + "\n" + commands;
+			commands = "b" + " " + data + " " + position + "\n" + 
+					commands;
 		} else {
 			throw new IllegalArgumentException();
 		}
@@ -100,7 +102,8 @@ public class Mix implements IMix{
 	 * 
 	 * @param pos1 the location of one of the characters to be switched
 	 * @param pos2 the location of the other character to be switched
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException if there is an error in the
+	 * 				user input
 	 ******************************************************************/
 	public void switchPosition(int pos1, int pos2) 
 			throws IllegalArgumentException{
@@ -150,27 +153,34 @@ public class Mix implements IMix{
 	 * 
 	 * @param pos1 the starting position of the cut
 	 * @param pos2 the ending position of the cut
+	 * @throws IllegalArgumentException if error in user input
 	 ******************************************************************/
 	public void cut(int pos1, int pos2) throws IllegalArgumentException{
 		
+		//If one of the positions is out of bounds, or pos2 > pos1
 		if (pos1 < 0 || pos2 < 0 || pos1 > message.count() ||
 				pos2 > message.count() || pos1 > pos2){
 			throw new IllegalArgumentException();
 		}
 		
+		//There is no message to cut
 		if(message.count() == 0){
 			throw new IllegalArgumentException();
 		}
 		
+		//Clears the clipboard
 		clipboard.deleteAll();
+		
 		clipboard.addFirst(message.getAtIndex(pos1));
 		
 		int count = pos2 - pos1;
 		
+		//Adds all of the characters to the clipboard
 		for(int i = 1; i <= count; i++){
 			clipboard.addBeforeIndex(i, message.getAtIndex(pos1 + i));
 		}
 		
+		//Adds to the commands
 		for(int i = 0; i <= count; i++){
 			commands = "b " + message.removeAtIndex(pos1) + 
 					" " + pos1 + "\n" + commands;
@@ -183,26 +193,31 @@ public class Mix implements IMix{
 	 * 
 	 * @param position the location of where to paste the contents of
 	 * 			the clipboard
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException if error in user input
 	 ******************************************************************/
 	public void paste(int position) throws IllegalArgumentException{
 		
 		String subcommand = "";
 		
+		//There is no message
 		if (clipboard.getTop() == null){
 			throw new IllegalArgumentException();
 		}
 		
+		//Position is out of bounds
 		if (position > message.count() + 1 || position < 0){
 			throw new IllegalArgumentException();
 		}
 		
+		//Copies to the clipboard
 		for(int i = clipboard.count() - 1; i >= 0; i--){
 			message.addBeforeIndex(position, 
 					clipboard.getAtIndex(i));
 
 			subcommand = subcommand + "r " + (position + i) + "\n";
 		}
+		
+		//Adds to the commands
 		commands = subcommand + commands; 
 		
 	}
@@ -213,24 +228,30 @@ public class Mix implements IMix{
 	 * 
 	 * @param pos1 the starting position of the copy
 	 * @param pos2 the ending position of the copy
+	 * @throws IllegalArgumentException if error in user input
 	 ******************************************************************/
 	public void copy(int pos1, int pos2)
 						throws IllegalArgumentException{
 		
+		//Position is out of bounds or pos2 < pos1
 		if (pos1 < 0 || pos2 < 0 || pos1 > message.count() ||
 				pos2 > message.count() || pos1 > pos2){
 			throw new IllegalArgumentException();
 		}
 		
+		//There is no message
 		if(message.count() == 0){
 			throw new IllegalArgumentException();
 		}
 		
+		//Clears the clipboard
 		clipboard.deleteAll();
+		
 		clipboard.addFirst(message.getAtIndex(pos1));
 		
 		int count = pos2 - pos1;
 		
+		//Adds the message to the clipboard
 		for(int i = 1; i <= count; i++){
 			clipboard.addBeforeIndex(i, message.getAtIndex(pos1 + i));
 		}
@@ -245,6 +266,7 @@ public class Mix implements IMix{
 
 			//adds the character at the end
 			message.addAtEnd(c);
+			
 			//saves the command as remove from the current end
 			commands = "r" + " " + 
 					(message.count() - 1) + "\n" + commands;
@@ -255,8 +277,10 @@ public class Mix implements IMix{
 	 * Processes the user's command
 	 * 
 	 * @param command, the user's command
-	 * @return String WHAT DO IT DOOOOO
-	 * @throws IllegalArgumentException
+	 * @return String representing the updated LinkList
+	 * @throws IllegalArgumentException if error in user input
+	 * @throws UnsupportedOperationException if user did not enter 
+	 * 				a valid command
 	 ******************************************************************/
 	@Override
 	public String processCommand(String command) 
@@ -540,6 +564,7 @@ public class Mix implements IMix{
 		
 		Scanner scanner = new Scanner(System.in);
 		
+		//Gets the initial message
 		System.out.println("Enter initial message:");
 		String userMessage = scanner.nextLine();
 		
@@ -552,6 +577,7 @@ public class Mix implements IMix{
 
 		String input = "";
 		
+		//Processes the user's command until they quit the program
 	    while ((input = scanner.nextLine()) != "Q") {
 	    	try {
 	    		System.out.println(mix.processCommand(input));

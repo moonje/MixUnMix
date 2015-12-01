@@ -163,7 +163,7 @@ public class LinkList<E> {
 	 * 
 	 * @param index, the position at which the node will be added
 	 * @param data, the data to be added
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException if the index is out of bounds
 	 ******************************************************************/
 	public void addBeforeIndex(int index, E data) 
 			throws IllegalArgumentException{
@@ -198,7 +198,8 @@ public class LinkList<E> {
 	 * 
 	 * @return E, data that was removed
 	 * @param position, the index of the Node
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException if position is out of bounds
+	 *               or there is no node to remove
 	 ******************************************************************/
 	public E removeAtIndex(int position) 
 			throws IllegalArgumentException{
@@ -250,7 +251,8 @@ public class LinkList<E> {
 	 * 
 	 * @return E, data that was requested
 	 * @param position, the index of the Node
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException if index out of bounds or
+	 *                   if there is no list
 	 ******************************************************************/
 	public E getAtIndex(int position) 
 			throws IllegalArgumentException{
