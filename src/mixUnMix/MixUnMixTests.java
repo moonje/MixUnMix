@@ -1615,5 +1615,106 @@ public class MixUnMixTests {
 		Mix m = new Mix();
 		m.processCommand("Q ANYTHING");
 	}
+	
+	/*******************************************************************
+	 * Tests: Covers all of the operations in mix and unmix
+	 ******************************************************************/
+	@Test
+	public void testEVERYTHING(){
+		
+		//create a mix
+		Mix m = new Mix();
+		
+		//set message
+		m.setInitialMessage("I AM PIZZA");
+		
+		//inserting
+		m.processCommand("b y 0");
+		m.processCommand("b l 0");
+		m.processCommand("b l 0");
+		m.processCommand("b o 0");
+		m.processCommand("b m 0");
+		assertEquals(m.messageToString(), "mollyI AM PIZZA");
+		
+		//removing
+		m.processCommand("r 1");
+		m.processCommand("r 5");
+		m.processCommand("r 2");
+		m.processCommand("r 0");
+		m.processCommand("r 1");
+		assertEquals(m.messageToString(), "lIAM PIZZA");
+		
+		//switching
+		m.processCommand("w 0 1");
+		m.processCommand("w 0 2");
+		m.processCommand("w 1 2");
+		m.processCommand("w 3 1");
+		m.processCommand("w 5 4");
+		assertEquals(m.messageToString(), "AMlIP IZZA");
+		
+		//cutting and pasting
+		m.processCommand("x 0 1");
+		m.processCommand("p 5");
+		assertEquals(m.messageToString(), "lIP IAMZZA");
+		m.processCommand("x 0 1");
+		m.processCommand("p 5");
+		assertEquals(m.messageToString(), "P IAMlIZZA");
+		m.processCommand("x 1 3");
+		m.processCommand("p 0");
+		assertEquals(m.messageToString(), " IAPMlIZZA");
+		m.processCommand("x 5 7");
+		m.processCommand("p 3");
+		assertEquals(m.messageToString(), " IAlIZPMZA");
+		m.processCommand("x 0 0");
+		m.processCommand("p 6");
+		assertEquals(m.messageToString(), "IAlIZP MZA");
+		
+		//copying and pasting
+		m.processCommand("c 0 3");
+		m.processCommand("p 6");
+		assertEquals(m.messageToString(), "IAlIZPIAlI MZA");
+		m.processCommand("c 2 3");
+		m.processCommand("p 0");
+		assertEquals(m.messageToString(), "lIIAlIZPIAlI MZA");
+		m.processCommand("c 6 7");
+		m.processCommand("p 16");
+		assertEquals(m.messageToString(), "lIIAlIZPIAlI MZAZP");
+		m.processCommand("c 1 7");
+		m.processCommand("p 0");
+		assertEquals(m.messageToString(), "IIAlIZPlIIAlIZPIAlI MZAZP");
+		m.processCommand("c 0 0");
+		m.processCommand("p 0");
+		assertEquals(m.messageToString(), 
+										 "IIIAlIZPlIIAlIZPIAlI MZAZP");
+		
+		//appending
+		m.processCommand("a N");
+		assertEquals(m.messageToString(), 
+				"IIIAlIZPlIIAlIZPIAlI MZAZPN");
+		m.processCommand("a O");
+		assertEquals(m.messageToString(), 
+				"IIIAlIZPlIIAlIZPIAlI MZAZPNO");
+		m.processCommand("a O");
+		assertEquals(m.messageToString(), 
+				"IIIAlIZPlIIAlIZPIAlI MZAZPNOO");
+		m.processCommand("a O");
+		assertEquals(m.messageToString(), 
+				"IIIAlIZPlIIAlIZPIAlI MZAZPNOOO");
+		m.processCommand("a  ");
+		assertEquals(m.messageToString(), 
+				"IIIAlIZPlIIAlIZPIAlI MZAZPNOOO ");
+		
+		//saving
+		m.processCommand("s everythingtest");
+		
+		//create an unmix
+		UnMix u = new UnMix();
+		
+		//unmix the file
+		assertEquals(u.UnMixUsingFile("everythingtest.txt", 
+							"IIIAlIZPlIIAlIZPIAlI MZAZPNOOO "), 
+							"The original message was:\nI AM PIZZA");
+		
+	}
 
 }
